@@ -1,7 +1,7 @@
 /**
- * 用户 commit类型
+ * 设置 commit类型
  */
-export enum UserMutationTypes {
+export enum SettingMutationTypes {
   /**
    * 设置token
    */

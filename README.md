@@ -1,7 +1,13 @@
 
-# 维汉词典uniapp版本
+# Muzat
 
-## uniapp-vue3模板
+## 2 启动项目
 
-### 技术战:vue3 + vite + vant + vuex + ts
-
+```shell
+# cd至项目根路径
+# 安装所需包
+npm i
+# 运行项目(微信小程序)
+npm run dev:mp-weixin
+# 微信小程序中访问
+```

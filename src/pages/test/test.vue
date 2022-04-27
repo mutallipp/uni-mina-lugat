@@ -5,20 +5,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
-function mutallip () {
-  const name = 'muzat'
+function useTest () {
+  const name = ref('tenst')
   return {
     name,
   }
 }
 export default defineComponent({
+  name: 'test',
   components: {},
   props: {},
   setup () {
     return {
-      ...mutallip(),
+      ...useTest(),
     }
   },
 })

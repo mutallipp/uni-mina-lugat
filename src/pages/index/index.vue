@@ -1,47 +1,52 @@
 <template>
-  <van-nav-bar
-    title="标题"
-    left-text="返回"
-    left-arrow
-  >
-    <template #right>
-      <van-icon
-        name="search"
+  <m-layout>
+    <view class="content">
+      <image
+        class="logo"
+        src="/static/logo.png"
       />
-    </template>
-  </van-nav-bar>
-  <view class="content">
-    <image
-      class="logo"
-      src="/static/logo.png"
-    />
-    <view class="text-area">
-      <text class="title">
-        {{ title }}
-      </text>
+      <view class="text-area">
+        <text class="title">
+          {{ title }}
+        </text>
+      </view>
+      <van-button
+        type="primary"
+        @click="btnClickHandle"
+      >
+        vant
+      </van-button>
     </view>
-    <van-button type="primary">
-      vant
-    </van-button>
-  </view>
+  </m-layout>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
-import rest from '@/utils/rest'
-import config from '@/config'
+import store from '@/store'
+
+function useHomePage () {
+  const title = ref('muzat')
+  const btnClickHandle = () => {
+    uni.navigateTo({
+      url: '/pages/test/test',
+    })
+  }
+  onMounted(() => {
+    store.state.user.dataPromise?.then(() => {
+      console.log('index promise')
+    })
+  })
+  return {
+    title,
+    btnClickHandle,
+  }
+}
 
 export default defineComponent({
+  components: {},
   setup () {
-    const title = ref('muzat')
-    onMounted(() => {
-      rest.get('http://localhost:8081/api/mina/member/login', { code: 'sdfsfsf' }, { target: 'muzat' })
-      console.log('config', config)
-
-      // fetch.post('http://localhost:8081/api/mina/member/login', { code: 'sdfsfsf' })
-    })
     return {
-      title,
+      ...useHomePage(),
     }
   },
 })
