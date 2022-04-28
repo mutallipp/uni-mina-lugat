@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import axios, { AxiosInstance, AxiosPromise } from 'axios'
 import * as utils from '@/utils'
 import { IAnyObj } from '@/defineds'
 import {
-  IRestHeader, IResult, RequestFucNames, RequestMethod,
+  IRestHeader, RequestFucNames, RequestMethod,
 } from '@/defineds/utils/rest'
 import { RootStore } from '@/store/types'
 import store from '@store/index'
@@ -44,6 +45,11 @@ class Axios {
    */
   private _uniAppRequest (config: any):AxiosPromise {
     return new Promise((resolve, reject) => {
+      if (config.paramsType === 'x-www-form-urlencoded' && utils.actualTypeIsEqual(config.data, 'string')) {
+        Object.assign(config, {
+          data: JSON.parse(config.data),
+        })
+      }
       uni.request({
         method: config.method as any,
         // url: buildURL(config.url, config.params, config.paramsSerializer),
@@ -131,7 +137,7 @@ class Axios {
         return `${import.meta.env.VITE_APP_testApi}${url}`
       }
       case 'from-muzat': {
-        return `${import.meta.env.VITE_APP_MUZAT_API}${url}`
+        return `${import.meta.env.VITE_APP_LUGAT_API}${url}`
       }
       case 'from-node': {
         return url
@@ -152,12 +158,12 @@ class Axios {
    * @param + autoCancel: boolean 离开路由时是否自动取消当前页面发起的所有请求，默认: true
    * @returns Promise<any>
    */
-  request<T> (url: string, params: IAnyObj = {}, config: IAnyObj = {}): Promise<IResult<T>> {
+  request<T> (url: string, params: IAnyObj = {}, config: IAnyObj = {}): Promise<T> {
     if (!this._axiosCustom) {
       return (Promise.resolve({
         code: -100,
         msg: '',
-      })) as Promise<IResult<T>>
+      })) as unknown as Promise<T>
     }
     const {
       // autoErrorRes = true,
@@ -192,7 +198,7 @@ class Axios {
       Object.assign(args, {
         params: newParams || {},
       })
-    } else if (paramsType === 'raw') {
+    } else if (['raw', 'x-www-form-urlencoded'].includes(paramsType)) {
       Object.assign(args, {
         data: newParams || {},
       })
@@ -277,7 +283,8 @@ class Axios {
     })
   }
 
-  private _get<T> (href: string, params: IAnyObj = {}, config: IAnyObj = {}, outTime = -1, requestMethod:RequestFucNames = RequestFucNames.REQUEST): Promise<IResult<T>> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private _get<T> (href: string, params: IAnyObj = {}, config: IAnyObj = {}, outTime = -1, requestMethod:RequestFucNames = RequestFucNames.REQUEST): Promise<T> {
     if (!href) return Promise.reject(new Error('缺少入口'))
     const newConfig = {
       headers: config.headers || {},
@@ -285,12 +292,13 @@ class Axios {
       ...config,
     }
     if (requestMethod === 'request') {
-      return this[requestMethod](href, params, newConfig)
+      return this.request<T>(href, params, newConfig)
     }
-    return this[requestMethod](href, params, newConfig, outTime)
+    throw new Error('查找不到需要调用的函数')
   }
 
-  private _post<T> (href: string, params: IAnyObj = {}, config: IAnyObj = {}, outTime = -1, requestMethod = 'request'): Promise<IResult<T>> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private _post<T> (href: string, params: IAnyObj = {}, config: IAnyObj = {}, outTime = -1, requestMethod = 'request'): Promise<T> {
     if (!href) return Promise.reject(new Error('缺少入口'))
     const newConfig = {
       headers: config.headers || {},
@@ -311,9 +319,7 @@ class Axios {
     //   search: `?${query}`,
     // }))
     if (requestMethod === 'request') {
-      return this[requestMethod](href, params, newConfig)
-    } else if (requestMethod === 'sessionRequest' || requestMethod === 'localRequest') {
-      return this[requestMethod](newUrl, params, newConfig, outTime)
+      return this.request<T>(href, params, newConfig)
     } else {
       throw new Error('查找不到需要调用的函数')
     }
@@ -326,8 +332,8 @@ class Axios {
    * @param config: object axios参数，选填，默认: {}
    * @returns Promise<any>
    */
-  public async get<T> (href: string, params: IAnyObj = {}, config: IAnyObj = {}, outTime = -1): Promise<IResult<T>> {
-    return this._get(href, params, config, outTime)
+  public async get<T> (href: string, params: IAnyObj = {}, config: IAnyObj = {}, outTime = -1): Promise<T> {
+    return this._get<T>(href, params, config, outTime)
   }
 
   /**
@@ -337,8 +343,8 @@ class Axios {
    * @param config: object axios参数，选填，默认: {}
    * @returns Promise<any>
    */
-  async post<T> (href: string, params: IAnyObj = {}, config: IAnyObj = {}, outTime = -1): Promise<IResult<T>> {
-    return this._post(href, params, config, outTime)
+  async post<T> (href: string, params: IAnyObj = {}, config: IAnyObj = {}, outTime = -1): Promise<T> {
+    return this._post<T>(href, params, config, outTime)
   }
 }
 

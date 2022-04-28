@@ -19,7 +19,7 @@ if (DEV) {
 // 通用配置
 Object.assign(configure, base)
 
-import.meta.env.VITE_APP_MUZAT_API = configure?.net?.HOST || ''
+import.meta.env.VITE_APP_LUGAT_API = configure?.net?.HOST || ''
 
 console.log('process', import.meta.env)
 

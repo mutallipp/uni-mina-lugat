@@ -1,14 +1,19 @@
 <template>
-  <div class="layout">
-    <m-header>
+  <div class="layout page-default">
+    <m-header
+      :navigation-bar-title-text="navigationBarTitleText"
+    >
     <!-- 我们希望把页头放这里 -->
     </m-header>
     <slot>
     <!-- 我们希望把主要内容放这里 -->
     </slot>
-    <m-footer>
-    <!-- 我们希望把页脚放这里 -->
-    </m-footer>
+
+    <div class="m-footer">
+      <m-footer>
+        <!-- 我们希望把页脚放这里 -->
+      </m-footer>
+    </div>
   </div>
 </template>
 
@@ -26,7 +31,12 @@ export default defineComponent({
     'm-header': Header,
     'm-footer': Footer,
   },
-  props: {},
+  props: {
+    navigationBarTitleText: {
+      type: String,
+      default: 'muzat信息平台',
+    },
+  },
   setup () {
     return {
       ...useLayout(),

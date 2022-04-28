@@ -1,0 +1,83 @@
+/**
+创建小三角
+*/
+@mixin create-triangle($direaction:'left',$height:16px,$distant:18px) {
+  &::before{
+    content: "";
+    transform: rotate(45deg);
+    position: absolute;
+    z-index: -1;
+    display: inline-block;
+    overflow: hidden;
+    width: $height;
+
+    @if $direaction == 'left' {
+      top: $distant;
+      height: $height;
+      left: -$height/2;
+      right: initial;
+    }
+    @else if $direaction == 'top' {
+      left: $distant;
+      height: $height;
+      top: -$height/2;
+      bottom: initial;
+    }
+    @else if $direaction == 'right' {
+      top: $distant;
+      height: $height;
+      right: -$height/2;
+      left: initial;
+    }
+    @else if $direaction == 'bottom' {
+      left: $distant;
+      height: $height;
+      bottom: -$height/2;
+      top: initial;
+    }
+    
+    background-color: inherit;
+    filter: blur(5rpx);
+    opacity: 0.3;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+  &::after{
+    content: "";
+    transform: rotate(45deg);
+    position: absolute;
+    z-index: 100;
+    display: inline-block;
+    overflow: hidden;
+    width: $height;
+
+    @if $direaction == 'left' {
+      top: $distant;
+      height: $height;
+      left: -$height/2;
+      right: initial;
+    }
+    @else if $direaction == 'top' {
+      left: $distant;
+      height: $height;
+      top: -$height/2;
+      bottom: initial;
+    }
+    @else if $direaction == 'right' {
+      top: $distant;
+      height: $height;
+      right: -$height/2;
+      left: initial;
+    }
+    @else if $direaction == 'bottom' {
+      left: $distant;
+      height: $height;
+      bottom: -$height/2;
+      top: initial;
+    }
+
+    background-color: inherit;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+}

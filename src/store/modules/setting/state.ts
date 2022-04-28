@@ -14,5 +14,20 @@ export const settingState: ISettingState = {
   /**
    * 底部导航栏
    */
-  tabBarList: [],
+  tabBarOption: {
+    tabBarList: [
+      {
+        pagePath: '/pages/me/me',
+        text: '我的',
+        icon: 'contact',
+      },
+      {
+        pagePath: '/pages/index/index',
+        text: '首页',
+        icon: 'wap-home-o',
+      },
+    ],
+    active: 1,
+  },
+
 }

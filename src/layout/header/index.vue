@@ -1,22 +1,20 @@
 <template>
-  <div class="header-container">
-    <van-nav-bar
-      :custom-style="navBarStyle"
-    >
-      <template #left>
+  <div
+    id="layout-header-container"
+    class="layout-header-container"
+    :style="navBarStyle"
+  >
+    <div class="nav-bar-content">
+      <div class="m-l-5">
         <van-icon name="arrow-left" />
-      </template>
-      <template #title>
-        <div class="nav-bar-title">
-          muzat信息平台
-        </div>
-      </template>
-      <template #right>
-        <van-icon
-          name="search"
-        />
-      </template>
-    </van-nav-bar>
+      </div>
+      <div class="nav-bar-title">
+        {{ navigationBarTitleText }}
+      </div>
+      <van-icon
+        name=""
+      />
+    </div>
   </div>
 </template>
 
@@ -29,13 +27,19 @@ function useHeader () {
     const bgColor = '#3366ff'
     return `background-color: ${bgColor}; color: white;`
   })
+
   return {
     navBarStyle,
   }
 }
 export default defineComponent({
   components: {},
-  props: {},
+  props: {
+    navigationBarTitleText: {
+      type: String,
+      default: 'muzat信息平台',
+    },
+  },
   setup () {
     return {
       ...useHeader(),
@@ -47,6 +51,13 @@ export default defineComponent({
 
 <style lang="scss">
 .nav-bar-title{
-  color: white;
+  // color: black;
+}
+.nav-bar-content{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 44px;
+  padding-top: 40px;
 }
 </style>
