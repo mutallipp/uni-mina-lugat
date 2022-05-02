@@ -9,5 +9,9 @@ export enum SettingMutationTypes {
   /**
    * 设置promise
    */
-  SET_DATA_PROMISE = 'SET_DATA_PROMISE'
+  SET_DATA_PROMISE = 'SET_DATA_PROMISE',
+  /**
+   * 设置手机系统信息
+   */
+  SET_SETTING_INFO = 'SET_SETTING_INFO',
 }

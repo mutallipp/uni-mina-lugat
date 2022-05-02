@@ -8,3 +8,9 @@ export interface IMessageItem {
   isSelf: boolean,
   time: number,
 }
+/**
+ * message list props
+ */
+export interface IMessageListProps {
+  messageList:Array<IMessageItem>
+}

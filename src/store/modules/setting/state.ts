@@ -29,5 +29,11 @@ export const settingState: ISettingState = {
     ],
     active: 1,
   },
+  systemInfo: {
+    brand: '',
+    model: '',
+    screenWidth: 0,
+    screenHeight: 0,
+  },
 
 }

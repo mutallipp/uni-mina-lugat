@@ -14,5 +14,9 @@ export enum SettingGetterType {
    * 激活的底部index
    */
   ACTIVE_TAB_BAR = 'ACTIVE_TAB_BAR',
+  /**
+   * 是否苹果手机
+   */
+  IS_IPHONE = 'IS_IPHONE',
 
 }

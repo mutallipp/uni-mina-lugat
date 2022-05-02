@@ -42,25 +42,51 @@
           </div>
         </div>
       </div>
-      <div @click="scroll2bottom">
-        to top
-      </div>
     </scroll-view>
   </div>
 </template>
 
 <script lang="ts">
 import {
+  computed,
   defineComponent, nextTick, PropType, ref, toRefs,
 } from 'vue'
 import { timeStamp2time } from '@utils/index'
+import { useClientRect } from '@/hooks/client-rect'
+import { useStore } from '@/store'
+import { SettingGetterType } from '@store/modules/setting/constants/getter'
 import MsgAvatar from './avatar.vue'
 import MsgContent from './content.vue'
-import { IMessageItem } from '../types/message-list'
+import { IMessageItem, IMessageListProps } from '../types/message-list'
 
-function useMessageList (props) {
+function useMessageList (props:IMessageListProps) {
+  const store = useStore()
   const { messageList } = toRefs(props)
+  const homeHeaderRect = useClientRect('.header')
+  const chatInputRect = useClientRect('.chat-input')
   const msgId = ref('')
+  const isIPhone = computed<boolean>(() => {
+    return store.getters[SettingGetterType.IS_IPHONE]
+  })
+  const messageListHeight = computed(() => {
+    /**
+     * tabBar 50 +40
+     */
+    let height = 50 + 15
+    if (homeHeaderRect.value?.height) {
+      height += homeHeaderRect.value?.height
+    }
+    if (chatInputRect.value?.height) {
+      height += chatInputRect.value?.height
+    }
+    if (isIPhone.value) {
+      height += 40
+    }
+    // if (tabBarRect.value?.height) {
+    //   height += tabBarRect.value?.height
+    // }
+    return `${height}px`
+  })
   // 消息滚动到底部
   const scroll2bottom = () => {
     console.log('scroll2bottom')
@@ -68,7 +94,8 @@ function useMessageList (props) {
     msgId.value = ''
     nextTick(() => {
       // msgId.value = `msgItem-${0}`
-      msgId.value = `msgItem-${messageList.value?.slice(-1)[0]._id}`
+      msgId.value = `msgItem-${messageList.value?.[messageList?.value?.length - 1]._id}`
+      console.log('messageList.value?.[messageList?.value?.length - 1]._id', messageList.value?.[messageList?.value?.length - 1]._id)
     })
   }
   // 消息滚动到顶部
@@ -87,6 +114,7 @@ function useMessageList (props) {
   }
   return {
     msgId,
+    messageListHeight,
 
     timeStamp2time,
     scrolltoupper,
@@ -100,10 +128,10 @@ export default defineComponent({
     'msg-content': MsgContent,
   },
   props: {
-    messageListHeight: {
-      type: String,
-      default: '0px',
-    },
+    // messageListHeight: {
+    //   type: String,
+    //   default: '0px',
+    // },
     messageList: {
       type: Array as PropType<Array<IMessageItem>>,
       default: () => [],

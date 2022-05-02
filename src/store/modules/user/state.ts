@@ -7,7 +7,10 @@ export const userState: IUserState = {
   token: '',
   dataPromise: undefined,
   memberInfo: {
-    nickName: 'mutallip',
-    avatarUrl: 'http://qiniu.mutallip.cn/bay-mia-logo.JPG',
+    nickName: '',
+    avatarUrl: '',
+  },
+  getUserInfoProps: {
+    visible: false,
   },
 }

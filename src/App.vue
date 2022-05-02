@@ -9,6 +9,7 @@ onLaunch(async () => {
   const store = useStore()
   console.log('store:', store)
   store.dispatch(UserActionTypes.LOGIN)
+  store.dispatch(UserActionTypes.GET_MEMBER_INFO)
 
   console.log('App Launch')
 })

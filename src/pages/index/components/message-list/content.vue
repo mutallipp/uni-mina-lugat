@@ -4,6 +4,12 @@
     ${msgItem.isSelf&&'right'||'left'}
     `"
   >
+    <div
+      :class="`copy ${msgItem.isSelf&&'right'||'left'}`"
+      @click="copyText"
+    >
+      <van-icon name="orders-o" />
+    </div>
     <div>
       {{ msgItem.fromContent }}
     </div>
@@ -14,11 +20,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, toRefs } from 'vue'
 import { IMessageItem } from '../types/message-list'
 
-function useContent () {
-  return {}
+function useContent (props:{msgItem:IMessageItem}) {
+  const { msgItem } = toRefs(props)
+  const copyText = () => {
+    uni.setClipboardData({
+      data: msgItem.value.toContent,
+      success (res) {
+        console.log(res)
+      },
+      fail (err) {
+        console.log(err)
+      },
+    })
+  }
+  return {
+    copyText,
+  }
 }
 export default defineComponent({
   components: {},
@@ -28,9 +48,9 @@ export default defineComponent({
       default: () => {},
     },
   },
-  setup () {
+  setup (props) {
     return {
-      ...useContent(),
+      ...useContent(props),
     }
   },
 })
@@ -45,6 +65,16 @@ export default defineComponent({
   margin: 0 20px;
   padding: 20px;
   border-radius: 5px;
+  .copy{
+    position: absolute;
+    top: 5px;
+    &.left{
+      left: 5px
+    }
+    &.right{
+      right: 5px
+    }
+  }
   &.left{
     @include create-triangle('left');
   }

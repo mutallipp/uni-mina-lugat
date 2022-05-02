@@ -17,4 +17,7 @@ export const settingGetters:GetterTree<ISettingState, IRootState> &SettingGetter
   [SettingGetterType.ACTIVE_TAB_BAR] (state:ISettingState): number {
     return state?.tabBarOption.active || 0
   },
+  [SettingGetterType.IS_IPHONE] (state:ISettingState): boolean {
+    return state?.systemInfo?.model.split(' ').some(item => ['iPhone', 'iphone'].includes(item))
+  },
 }

@@ -21,6 +21,27 @@ export interface ITabBarItem {
   icon:string,
 }
 /**
+ * 手机系统信息
+ */
+export interface ISystemInfo{
+  /**
+   * 手机品牌
+   */
+  brand:string,
+  /**
+   * 手机型号
+   */
+  model:string,
+  /**
+   * 屏幕宽度
+   */
+  screenWidth:number,
+  /**
+   * 屏幕高度
+   */
+  screenHeight:number,
+}
+/**
  * 设置相关应用状态类型
  */
 export interface ISettingState {
@@ -41,4 +62,5 @@ export interface ISettingState {
      */
     active:number
   }
+  systemInfo:ISystemInfo
 }

@@ -255,3 +255,11 @@ export const timeStamp2time = (timeStp:Date):string => {
   const s = date.getSeconds()
   return `${Y}/${M}/${D} ${h}:${m}:${s}`
 }
+// 获取当前页面path
+export const getPageUrl = (lev:number):string => {
+  if (lev > 0) return ''
+  const pages = getCurrentPages()
+  const page = pages[pages.length - Math.abs(lev) - 1]
+  const pageUrl = `/${page.route}`
+  return pageUrl
+}

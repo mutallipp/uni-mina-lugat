@@ -16,4 +16,5 @@ export type ActionAugments = Omit<ActionContext<ISettingState, IRootState>, 'com
  */
 export type SettingActions = {
   [SettingActionTypes.SET_ACTIVE_TAB_BAR] (context:ActionAugments, index:number) :void
+  [SettingActionTypes.SET_SETTING_INFO] (context:ActionAugments) :void
 }

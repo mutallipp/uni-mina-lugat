@@ -7,6 +7,7 @@
       <van-tabbar-item
         v-for="tabBarItem in tabBarList"
         :key="tabBarItem.pagePath"
+        :name="tabBarItem.pagePath"
       >
         <!-- 位激活状态 -->
         <template #icon>
@@ -29,21 +30,23 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useStore } from '@store/index'
+import * as utils from '@utils/index'
 import { SettingGetterType } from '@store/modules/setting/constants/getter'
-import { SettingActionTypes } from '@/store/modules/setting/constants/action'
+// import { SettingActionTypes } from '@/store/modules/setting/constants/action'
 
 function useTabBar () {
   const store = useStore()
 
   const baseColor = computed(() => store.getters[SettingGetterType.BASE_COLOR])
   const tabBarList = computed(() => store.getters[SettingGetterType.TAB_BAR_LIST])
-  const active = computed(() => store.getters[SettingGetterType.ACTIVE_TAB_BAR])
+  // const active = computed(() => store.getters[SettingGetterType.ACTIVE_TAB_BAR])
+  const active = computed(() => utils.getPageUrl(0))
 
   const onChange = (e:any) => {
     const { detail } = e
-    store.dispatch(SettingActionTypes.SET_ACTIVE_TAB_BAR, detail)
+    // store.dispatch(SettingActionTypes.SET_ACTIVE_TAB_BAR, detail)
     uni.switchTab({
-      url: tabBarList.value[detail].pagePath,
+      url: detail,
     })
   }
   return {

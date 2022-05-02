@@ -17,4 +17,10 @@ export const userGetters:GetterTree<IUserState, IRootState> &UserGetters = {
   [UserGetterType.AVATAR_URL] (state:IUserState):string {
     return state?.memberInfo?.avatarUrl || ''
   },
+  [UserGetterType.GET_UDER_INOF_VISIBLE] (state:IUserState):boolean {
+    return state?.getUserInfoProps?.visible || false
+  },
+  [UserGetterType.HAS_USER_INFO] (state:IUserState):boolean {
+    return state?.memberInfo.nickName && true || false
+  },
 }

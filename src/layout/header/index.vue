@@ -4,7 +4,7 @@
     class="layout-header-container"
     :style="navBarStyle"
   >
-    <div class="nav-bar-content">
+    <!-- <div class="nav-bar-content">
       <div class="m-l-5">
         <van-icon name="arrow-left" />
       </div>
@@ -14,7 +14,22 @@
       <van-icon
         name=""
       />
-    </div>
+    </div> -->
+    <van-nav-bar
+      fixed
+      placeholder
+    >
+      <template #left>
+        <van-icon
+          name="search"
+        />
+      </template>
+      <template #title>
+        <div class="title">
+          {{ navigationBarTitleText }}
+        </div>
+      </template>
+    </van-nav-bar>
   </div>
 </template>
 
@@ -50,14 +65,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.nav-bar-title{
-  // color: black;
-}
-.nav-bar-content{
+.layout-header-container{
+  .nav-bar-content{
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 44px;
   padding-top: 40px;
 }
+}
+
 </style>

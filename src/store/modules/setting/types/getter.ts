@@ -8,4 +8,5 @@ export type SettingGetters = {
   [SettingGetterType.BASE_COLOR] (state:ISettingState) :string,
   [SettingGetterType.TAB_BAR_LIST] (state:ISettingState) :Array<ITabBarItem>,
   [SettingGetterType.ACTIVE_TAB_BAR] (state:ISettingState) :number,
+  [SettingGetterType.IS_IPHONE] (state:ISettingState) :boolean,
 }

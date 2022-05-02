@@ -9,7 +9,6 @@
     <!-- 消息列表 -->
     <message-list
       ref="messageListRef"
-      :message-list-height="messageListHeight"
       :message-list="messageList"
     />
     <!--    聊天输入框-->
@@ -21,13 +20,12 @@
 
 <script lang="ts">
 import {
-  computed, defineComponent, onMounted, ref,
+  defineComponent, onMounted, ref,
 } from 'vue'
 import store from '@/store'
 import * as storage from '@utils/storage'
 import * as utils from '@utils/index'
 import { useSharePage } from '@hooks/share'
-import { useClientRect } from '@hooks/client-rect'
 import { onHide } from '@dcloudio/uni-app'
 import { translateTextApi } from '@api/IIndex/index'
 import { ILangItem } from './components/types/header'
@@ -36,15 +34,11 @@ import MessageList from './components/message-list/message-list.vue'
 import ChatInput from './components/chat-input.vue'
 import { IMessageItem } from './components/types/message-list'
 import { langList } from './components/constants/header'
-import { ITranslateResult } from './types/index'
 
 function useHomePage () {
   const { onShareAppMessage, onShareTimeline } = useSharePage()
 
   const title = ref('muzat')
-  const homeHeaderRect = useClientRect('.header')
-  // const headerRect = useClientRect('.layout page-default')
-  const chatInputRect = useClientRect('.chat-input')
 
   const currentLang = ref<ILangItem>(langList[0])
 
@@ -52,32 +46,19 @@ function useHomePage () {
 
   const messageList = ref<Array<IMessageItem>>([])
 
-  const messageListHeight = computed(() => {
-    /**
-     * tabBar 50 +40
-     * navBar 44 +40
-     */
-    let height = 50 + 40 + 44 + 40 + 15
-    if (homeHeaderRect.value?.height) {
-      height += homeHeaderRect.value?.height
-    }
-    if (chatInputRect.value?.height) {
-      height += chatInputRect.value?.height
-    }
-    // if (tabBarRect.value?.height) {
-    //   height += tabBarRect.value?.height
-    // }
-    return `${height}px`
-  })
   const onChangeLang = (lang:ILangItem):void => {
     currentLang.value = lang
     console.log(currentLang.value)
   }
   const onSendMessage = async (currentMsg:string):Promise<void> => {
     console.log(currentMsg)
-    const data = await translateTextApi<ITranslateResult>({
+    const data = await translateTextApi<any>({
       convert: currentLang.value.lang,
       content: currentMsg,
+      // from: 'zh',
+      // to: 'en',
+      // text: '我爱你',
+      // token: '7oet2Tst1xhW7H7Gs65Vnl1BbPffdy4J',
     })
 
     if (!data.result || data.status === 1) {
@@ -89,14 +70,15 @@ function useHomePage () {
       fromContent: currentMsg,
       toContent: data.result,
       isSelf: currentLang.value?.lang === 1,
+      // isSelf: false,
       time: (new Date()).valueOf(),
     })
     messageListRef.value.scroll2bottom()
   }
   const _init = async () => {
     const localMsgList = await storage.getLocalStoregeSync<Array<IMessageItem>>('message-list')
-    if (localMsgList) {
-      messageList.value = localMsgList as Array<IMessageItem>
+    if (localMsgList.code === 200) {
+      messageList.value = localMsgList.data as Array<IMessageItem>
       messageListRef.value.scroll2bottom()
     }
   }
@@ -112,7 +94,6 @@ function useHomePage () {
   })
   return {
     title,
-    messageListHeight,
     messageList,
     messageListRef,
 

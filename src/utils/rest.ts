@@ -179,7 +179,9 @@ class Axios {
     //   })
     // }
 
-    // if (!config.hideLoading) fullScreenLoading.add()
+    if (!config.hideLoading) {
+      utils.toast('处理中。。。', 'loading')
+    }
 
     const newParams = this._getParams(params, config)
     const newUrl = this._getUrl(url, target)
@@ -207,7 +209,7 @@ class Axios {
     }
     console.log(args)
     return this._axiosCustom(args).then(async res => {
-      // fullScreenLoading.remove()
+      uni.hideToast()
       const { data } = res
       console.log('请求成功', res)
 
@@ -245,7 +247,7 @@ class Axios {
       }
     }, async error => {
       // 处理请求报错，如状态码为500、404、422等
-      // fullScreenLoading.remove()
+      uni.hideToast()
       if (error?.response?.status) {
         switch (error.response.status) {
           // 未登录

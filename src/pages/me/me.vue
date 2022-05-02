@@ -2,18 +2,84 @@
   <m-layout
     navigation-bar-title-text="我的"
   >
-    <div>me</div>
+    <div
+      class="head-wrapper"
+      :style="{backgroundColor:baseColor}"
+    >
+      <div class="user-info">
+        <div
+          v-if="memberInfo?.avatarUrl"
+          class="avatar"
+        >
+          <van-image
+            round
+            width="50px"
+            height="50px"
+            lazy-load
+            :src="memberInfo.avatarUrl"
+          >
+            <template #loading>
+              <van-loading
+                type="spinner"
+                size="20"
+                vertical
+              />
+            </template>
+          </van-image>
+          <div class="name m-l-10">
+            {{ memberInfo.nickName }}
+          </div>
+        </div>
+        <div
+          v-else
+          class="avatar"
+          @click="clickAvatarHandle"
+        >
+          <van-icon
+            name="manager"
+            size="50px"
+          />
+          <div class="name m-l-10">
+            维汉词典用户
+          </div>
+        </div>
+        <div>
+          <van-icon name="setting-o" />
+        </div>
+      </div>
+    </div>
+    <div class="grid-content m-x-20">
+      <m-gird />
+    </div>
   </m-layout>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
+import { useStore } from '@store/index'
+import { UserGetterType } from '@store/modules/user/constants/getter'
+import { UserActionTypes } from '@/store/modules/user/constants/action'
+
+import Gird from './components/gird.vue'
 
 function useMe () {
-  return {}
+  const store = useStore()
+  const memberInfo = computed(() => {
+    return store.getters[UserGetterType.MEMBER_INFO]
+  })
+
+  const clickAvatarHandle = () => {
+    store.dispatch(UserActionTypes.CHANGE_GET_USER_INFO_VISIBLE, true)
+  }
+  return {
+    memberInfo,
+    clickAvatarHandle,
+  }
 }
 export default defineComponent({
-  components: {},
+  components: {
+    'm-gird': Gird,
+  },
   props: {},
   setup () {
     return {
@@ -25,5 +91,34 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
+.head-wrapper{
+  background-color: pink;
+  min-height: 200px;
+  .user-info{
+    display: flex;
+    justify-content: space-between;
+    // align-items: center;
+    padding:20px 10px 10px 20px
+  }
+  .avatar{
+    display: flex;
+    align-items: center;
+  }
+}
+.grid-content{
+  position: relative;
+  top:-60px;
+  background-color: white;
+  border-radius: 5px;
+  .btn{
+    display: block;
+    text-align: center;
+  }
+  ::v-deep .u-icon--right{
+    flex-direction: column!important;
+  }
+}
+.content{
+  margin-top: -60px;
+}
 </style>

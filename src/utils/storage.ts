@@ -1,3 +1,5 @@
+import { ILocalResult } from '@/defineds/utils/storage'
+
 /**
  * 保存本地缓存（异步）
  */
@@ -27,16 +29,21 @@ export function setLocalStoregeSync<T> (key:string, value:T) {
 /**
  * 获取本地缓存（异步）
  */
-export function getLocalStorege<T> (key:string):Promise<T|boolean> {
+export function getLocalStorege<T> (key:string):Promise<ILocalResult<T>> {
   return new Promise((resolve) => {
     uni.getStorage({
       key,
       success (res) {
-        resolve(JSON.parse(res.data))
+        resolve({
+          data: JSON.parse(res.data),
+          code: 200,
+        }as ILocalResult<T>)
       },
       fail (e) {
         console.log('获取本地缓存失败(异步)', e)
-        resolve(false)
+        resolve({
+          code: -100,
+        } as ILocalResult<T>)
       },
     })
   })
@@ -44,17 +51,22 @@ export function getLocalStorege<T> (key:string):Promise<T|boolean> {
 /**
  * 获取本地缓存（同步）
  */
-export function getLocalStoregeSync<T> (key:string):Promise<T|boolean> {
+export function getLocalStoregeSync<T> (key:string):Promise<ILocalResult<T>> {
   return new Promise((resolve) => {
     try {
       const value = uni.getStorageSync(key)
       if (value) {
-        resolve(JSON.parse(value))
+        resolve({
+          data: JSON.parse(value),
+          code: 200,
+        }as ILocalResult<T>)
       }
     } catch (e) {
       // 错误
       console.log('获取本地缓存失败(同步)', e)
-      resolve(false)
+      resolve({
+        code: -100,
+      }as ILocalResult<T>)
     }
   })
 }

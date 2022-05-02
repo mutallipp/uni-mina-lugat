@@ -9,6 +9,12 @@ export interface IMemberInfo {
   avatarUrl:string,
 }
 /**
+ * 获取用户信息组件props
+ */
+export interface IGetUserInfoProps {
+  visible:boolean
+}
+/**
  * 用户相关应用状态类型
  */
 export interface IUserState {
@@ -19,9 +25,13 @@ export interface IUserState {
   /**
    * dataPromise
    */
-  dataPromise?:Promise<any>
+  dataPromise?:Promise<any>,
   /**
    * user info
    */
-  memberInfo :IMemberInfo
+  memberInfo :IMemberInfo,
+  /**
+   * 全局获取用户信息弹窗props
+   */
+  getUserInfoProps :IGetUserInfoProps
 }
