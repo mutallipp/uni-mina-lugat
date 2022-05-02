@@ -43,7 +43,7 @@
             维汉词典用户
           </div>
         </div>
-        <div>
+        <div @click="clickSetting">
           <van-icon name="setting-o" />
         </div>
       </div>
@@ -51,19 +51,27 @@
     <div class="grid-content m-x-20">
       <m-gird />
     </div>
+    <m-setting
+      v-if="settingVisible"
+      v-model:visible="settingVisible"
+    />
   </m-layout>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import { useStore } from '@store/index'
 import { UserGetterType } from '@store/modules/user/constants/getter'
 import { UserActionTypes } from '@/store/modules/user/constants/action'
 
 import Gird from './components/gird.vue'
+import Setting from './components/setting.vue'
 
 function useMe () {
   const store = useStore()
+
+  const settingVisible = ref(false)
+
   const memberInfo = computed(() => {
     return store.getters[UserGetterType.MEMBER_INFO]
   })
@@ -71,14 +79,21 @@ function useMe () {
   const clickAvatarHandle = () => {
     store.dispatch(UserActionTypes.CHANGE_GET_USER_INFO_VISIBLE, true)
   }
+  const clickSetting = () => {
+    settingVisible.value = true
+  }
   return {
     memberInfo,
+    settingVisible,
+
     clickAvatarHandle,
+    clickSetting,
   }
 }
 export default defineComponent({
   components: {
     'm-gird': Gird,
+    'm-setting': Setting,
   },
   props: {},
   setup () {

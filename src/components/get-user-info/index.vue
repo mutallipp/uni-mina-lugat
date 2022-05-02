@@ -28,6 +28,7 @@ import { useStore } from '@store/index'
 import * as storage from '@utils/storage'
 import { UserGetterType } from '@store/modules/user/constants/getter'
 import { UserActionTypes } from '@/store/modules/user/constants/action'
+import { LocalStorageKeyType } from '@/utils/constanst/storage'
 import { ISetLocalUserInfo } from './types/index'
 
 function useGetUserInfo () {
@@ -56,7 +57,7 @@ function useGetUserInfo () {
           avatarUrl,
           nickName,
         }
-        storage.setLocalStoregeSync<ISetLocalUserInfo>('user-info', { userInfo, expired })
+        storage.setLocalStoregeSync<ISetLocalUserInfo>(LocalStorageKeyType.USER_INFO, { userInfo, expired })
         store.dispatch(UserActionTypes.SET_MEMBER_INFO, userInfo)
         store.dispatch(UserActionTypes.CHANGE_GET_USER_INFO_VISIBLE, false)
       },

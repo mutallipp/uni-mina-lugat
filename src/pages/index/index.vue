@@ -28,6 +28,7 @@ import * as utils from '@utils/index'
 import { useSharePage } from '@hooks/share'
 import { onHide } from '@dcloudio/uni-app'
 import { translateTextApi } from '@api/IIndex/index'
+import { LocalStorageKeyType } from '@/utils/constanst/storage'
 import { ILangItem } from './components/types/header'
 import HomeHeader from './components/header.vue'
 import MessageList from './components/message-list/message-list.vue'
@@ -75,7 +76,7 @@ function useHomePage () {
     messageListRef.value.scroll2bottom()
   }
   const _init = async () => {
-    const localMsgList = await storage.getLocalStoregeSync<Array<IMessageItem>>('message-list')
+    const localMsgList = await storage.getLocalStoregeSync<Array<IMessageItem>>(LocalStorageKeyType.MESSAGE_LIST)
     if (localMsgList.code === 200) {
       messageList.value = localMsgList.data as Array<IMessageItem>
       messageListRef.value.scroll2bottom()
@@ -87,7 +88,7 @@ function useHomePage () {
     _init()
   })
   onHide(() => {
-    storage.setLocalStoregeSync<Array<IMessageItem>>('message-list', messageList.value)
+    storage.setLocalStoregeSync<Array<IMessageItem>>(LocalStorageKeyType.MESSAGE_LIST, messageList.value)
   })
   return {
     title,

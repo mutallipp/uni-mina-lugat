@@ -70,6 +70,46 @@ export function getLocalStoregeSync<T> (key:string):Promise<ILocalResult<T>> {
     }
   })
 }
+/**
+ * 异步清除指定的缓存
+ */
+
+export function removeStorage<T> (key:string):Promise<ILocalResult<T>> {
+  return new Promise(resolve => {
+    uni.removeStorage({
+      key,
+      success (res) {
+        resolve({
+          code: 200,
+        } as ILocalResult<T>)
+        console.log(res)
+      },
+      fail (err) {
+        resolve({
+          code: -100,
+        } as ILocalResult<T>)
+        console.log(err)
+      },
+    })
+  })
+}
+/**
+ * 异步清除全部缓存
+ */
+export function clearStorage<T> ():Promise<ILocalResult<T>> {
+  return new Promise(resolve => {
+    try {
+      uni.clearStorage()
+      resolve({
+        code: 200,
+      } as ILocalResult<T>)
+    } catch (e) {
+      resolve({
+        code: -100,
+      } as ILocalResult<T>)
+    }
+  })
+}
 
 export default {
   setLocalStorege,
