@@ -1,5 +1,8 @@
 <template>
-  <div class="layout page-default">
+  <div
+    class="layout page-default"
+    :style="{'--footer-height':showFooter&&'50px'||'0px'}"
+  >
     <!-- <m-header
       :navigation-bar-title-text="navigationBarTitleText"
     >
@@ -7,14 +10,13 @@
     <slot>
     <!-- 我们希望把主要内容放这里 -->
     </slot>
+    <slot name="footer" />
 
     <div
       v-show="showFooter"
       class="m-footer"
     >
-      <m-footer>
-        <!-- 我们希望把页脚放这里 -->
-      </m-footer>
+      <m-footer />
     </div>
     <get-user-info />
   </div>
@@ -75,5 +77,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.layout{
+  background-color: $default-background;
+  padding: 20px;
+  height: calc(100vh - var(--footer-height));
 
+}
 </style>

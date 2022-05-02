@@ -48,7 +48,6 @@ function useHomePage () {
 
   const onChangeLang = (lang:ILangItem):void => {
     currentLang.value = lang
-    console.log(currentLang.value)
   }
   const onSendMessage = async (currentMsg:string):Promise<void> => {
     console.log(currentMsg)
@@ -84,12 +83,10 @@ function useHomePage () {
   }
   onMounted(() => {
     store.state.user.dataPromise?.then(() => {
-      console.log('index promise')
     })
     _init()
   })
   onHide(() => {
-    console.log('App Hide')
     storage.setLocalStoregeSync<Array<IMessageItem>>('message-list', messageList.value)
   })
   return {

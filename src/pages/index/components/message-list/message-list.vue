@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white m-x-10">
+  <div class="bg-white m-t-10">
     <scroll-view
       :scroll-into-view="msgId"
       :style="{ '--message-scroll-height': messageListHeight }"
@@ -72,7 +72,7 @@ function useMessageList (props:IMessageListProps) {
     /**
      * tabBar 50 +40
      */
-    let height = 50 + 15
+    let height = 50 + 20
     if (homeHeaderRect.value?.height) {
       height += homeHeaderRect.value?.height
     }
@@ -95,7 +95,6 @@ function useMessageList (props:IMessageListProps) {
     nextTick(() => {
       // msgId.value = `msgItem-${0}`
       msgId.value = `msgItem-${messageList.value?.[messageList?.value?.length - 1]._id}`
-      console.log('messageList.value?.[messageList?.value?.length - 1]._id', messageList.value?.[messageList?.value?.length - 1]._id)
     })
   }
   // 消息滚动到顶部

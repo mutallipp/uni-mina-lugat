@@ -71,7 +71,7 @@ export default defineComponent({
   justify-content: center;
   text-align: center;
   background-color: white;
-  margin:10px;
+  // margin:10px;
   padding: 10px 10px;
   border-radius: 5px;
   .left{

@@ -45,7 +45,7 @@ function useGetUserInfo () {
     const expired = (new Date()).valueOf() + 1000 * 60 * 60 * 24 * 15
     // desc: '用于完善会员资料'  必填 声明获取用户个人信息后的用途，后续会展示在弹窗中
     uni.getUserProfile({
-      desc: '用于完善会员资料',
+      desc: '用于完善更好的展示UI内容',
       lang: 'zh_CN',
       async success (user) {
         // console.log(user);

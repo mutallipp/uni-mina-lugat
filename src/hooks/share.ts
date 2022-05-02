@@ -1,4 +1,5 @@
 import { onShareTimeline, onShareAppMessage } from '@dcloudio/uni-app'
+import shareImg from '@assets/img/lughat.png'
 import { ISharePageProps } from './types/share'
 
 /**
@@ -7,11 +8,12 @@ import { ISharePageProps } from './types/share'
  */
 export const useSharePage = (option:ISharePageProps = {}) => {
   const shareOption = {
-    title: '木扎提Muzat',
+    title: '维汉翻译',
     path: '/pages/index/index',
-    imageUrl: 'http://qiniu.mutallip.cn/bay-mia-logo.JPG',
-    desc: 'Muzat',
-    content: '木扎提Muzat信息平台',
+    // imageUrl: 'http://qiniu.mutallip.cn/bay-mia-logo.JPG',
+    imageUrl: shareImg,
+    desc: '维汉翻译',
+    content: '维汉翻译',
   }
   Object.assign(shareOption, option)
   /**

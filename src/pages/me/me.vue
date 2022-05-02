@@ -94,6 +94,7 @@ export default defineComponent({
 .head-wrapper{
   background-color: pink;
   min-height: 200px;
+  margin: -$mainContentPadding;
   .user-info{
     display: flex;
     justify-content: space-between;
