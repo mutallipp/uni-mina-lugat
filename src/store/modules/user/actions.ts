@@ -1,6 +1,6 @@
 import { IRootState } from '@store/types'
 import { ActionTree } from 'vuex'
-import { getLocalStorege } from '@/utils/storage'
+import { getLocalStorage } from '@/utils/storage'
 import { ISetLocalUserInfo } from '@/components/get-user-info/types'
 import { ILocalResult } from '@/defineds/utils/storage'
 import { LocalStorageKeyType } from '@/utils/constanst/storage'
@@ -39,7 +39,7 @@ export const userActions:ActionTree<IUserState, IRootState> & UserActions = {
   async [UserActionTypes.GET_MEMBER_INFO] ({ commit }):Promise<ILocalResult<IMemberInfo>> {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve) => {
-      const res = await getLocalStorege<ISetLocalUserInfo>(LocalStorageKeyType.USER_INFO)
+      const res = await getLocalStorage<ISetLocalUserInfo>(LocalStorageKeyType.USER_INFO)
       const temp:ILocalResult<IMemberInfo> = {
         code: res.code,
         data: res.data?.userInfo,

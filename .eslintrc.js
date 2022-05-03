@@ -102,6 +102,7 @@ module.exports = {
           ['@api', './src/api'],
           ['@layout', './src/layout'],
           ['@hooks', './src/hooks'],
+          ['@lang', './src/lang'],
           ['@components', './src/components'],
           ['@defineds', './src/defineds'],
           ['@directives', './src/directives'],

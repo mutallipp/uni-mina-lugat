@@ -14,25 +14,25 @@
     @if $direaction == 'left' {
       top: $distant;
       height: $height;
-      left: -$height/2;
+      left: -$height / 2;
       right: initial;
     }
     @else if $direaction == 'top' {
       left: $distant;
       height: $height;
-      top: -$height/2;
+      top: -$height / 2;
       bottom: initial;
     }
     @else if $direaction == 'right' {
       top: $distant;
       height: $height;
-      right: -$height/2;
+      right: -$height / 2;
       left: initial;
     }
     @else if $direaction == 'bottom' {
       left: $distant;
       height: $height;
-      bottom: -$height/2;
+      bottom: -$height / 2;
       top: initial;
     }
     
@@ -54,25 +54,25 @@
     @if $direaction == 'left' {
       top: $distant;
       height: $height;
-      left: -$height/2;
+      left: -$height / 2;
       right: initial;
     }
     @else if $direaction == 'top' {
       left: $distant;
       height: $height;
-      top: -$height/2;
+      top: -$height / 2;
       bottom: initial;
     }
     @else if $direaction == 'right' {
       top: $distant;
       height: $height;
-      right: -$height/2;
+      right: -$height / 2;
       left: initial;
     }
     @else if $direaction == 'bottom' {
       left: $distant;
       height: $height;
-      bottom: -$height/2;
+      bottom: -$height / 2;
       top: initial;
     }
 

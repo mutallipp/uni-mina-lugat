@@ -15,3 +15,10 @@ export interface RequireContext {
 export interface IAnyObj {
   [propName: string]: any
 }
+/**
+ * key value
+ */
+export interface IKeyValueObj{
+  key:string,
+  value:string,
+}

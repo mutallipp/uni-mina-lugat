@@ -21,7 +21,7 @@
             size="30px"
           />
         </template>
-        <div>{{ tabBarItem.text }}</div>
+        <div>{{ $t(tabBarItem.text) }}</div>
       </van-tabbar-item>
     </van-tabbar>
   </div>

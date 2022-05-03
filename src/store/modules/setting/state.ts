@@ -18,12 +18,12 @@ export const settingState: ISettingState = {
     tabBarList: [
       {
         pagePath: '/pages/me/me',
-        text: '我的',
+        text: 'static.tabBar.me',
         icon: 'contact',
       },
       {
         pagePath: '/pages/index/index',
-        text: '首页',
+        text: 'static.tabBar.home',
         icon: 'wap-home-o',
       },
     ],
@@ -35,5 +35,6 @@ export const settingState: ISettingState = {
     screenWidth: 0,
     screenHeight: 0,
   },
+  language: 'uy',
 
 }

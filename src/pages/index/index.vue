@@ -76,7 +76,7 @@ function useHomePage () {
     messageListRef.value.scroll2bottom()
   }
   const _init = async () => {
-    const localMsgList = await storage.getLocalStoregeSync<Array<IMessageItem>>(LocalStorageKeyType.MESSAGE_LIST)
+    const localMsgList = await storage.getLocalStorageSync<Array<IMessageItem>>(LocalStorageKeyType.MESSAGE_LIST)
     if (localMsgList.code === 200) {
       messageList.value = localMsgList.data as Array<IMessageItem>
       messageListRef.value.scroll2bottom()
@@ -88,7 +88,7 @@ function useHomePage () {
     _init()
   })
   onHide(() => {
-    storage.setLocalStoregeSync<Array<IMessageItem>>(LocalStorageKeyType.MESSAGE_LIST, messageList.value)
+    storage.setLocalStorageSync<Array<IMessageItem>>(LocalStorageKeyType.MESSAGE_LIST, messageList.value)
   })
   return {
     title,

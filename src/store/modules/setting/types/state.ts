@@ -42,6 +42,10 @@ export interface ISystemInfo{
   screenHeight:number,
 }
 /**
+ * 语言类型
+ */
+export type LangType = 'zh'|'uy'
+/**
  * 设置相关应用状态类型
  */
 export interface ISettingState {
@@ -62,5 +66,12 @@ export interface ISettingState {
      */
     active:number
   }
-  systemInfo:ISystemInfo
+  /**
+   * 系统信息
+   */
+  systemInfo:ISystemInfo,
+  /**
+   * 当前选中的语言
+   */
+  language:LangType,
 }

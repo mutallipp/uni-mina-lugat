@@ -6,12 +6,12 @@ import { ILangItem } from '../types/header'
 export const langList:ILangItem[] = [
   {
     lang: 1,
-    textLeft: '国语',
-    textRight: '维语',
+    textLeft: 'home.header.zhLang',
+    textRight: 'home.header.uyLang',
   },
   {
     lang: 7,
-    textLeft: '维语',
-    textRight: '国语',
+    textLeft: 'home.header.uyLang',
+    textRight: 'home.header.zhLang',
   },
 ]

@@ -59,6 +59,12 @@
     <m-setting
       v-if="settingVisible"
       v-model:visible="settingVisible"
+      @click="clickSettingItem"
+    />
+    <!-- 切换语言 -->
+    <change-lang
+      v-if="changeLangVisible"
+      v-model:visible="changeLangVisible"
     />
   </m-layout>
 </template>
@@ -71,11 +77,13 @@ import { UserActionTypes } from '@/store/modules/user/constants/action'
 
 import Gird from './components/gird.vue'
 import Setting from './components/setting.vue'
+import ChangeLange from './components/change-lang.vue'
 
 function useMe () {
   const store = useStore()
 
   const settingVisible = ref(false)
+  const changeLangVisible = ref(false)
 
   const memberInfo = computed(() => {
     return store.getters[UserGetterType.MEMBER_INFO]
@@ -87,18 +95,32 @@ function useMe () {
   const clickSetting = () => {
     settingVisible.value = true
   }
+  const clickSettingItem = (key:string) => {
+    console.log('clickSettingItem', key)
+    switch (key) {
+      case 'changeLang': {
+        changeLangVisible.value = true
+        break
+      }
+      default:
+        break
+    }
+  }
   return {
     memberInfo,
     settingVisible,
+    changeLangVisible,
 
     clickAvatarHandle,
     clickSetting,
+    clickSettingItem,
   }
 }
 export default defineComponent({
   components: {
     'm-gird': Gird,
     'm-setting': Setting,
+    'change-lang': ChangeLange,
   },
   props: {},
   setup () {

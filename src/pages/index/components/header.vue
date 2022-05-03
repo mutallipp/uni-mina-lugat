@@ -5,8 +5,9 @@
   >
     <div
       class="left"
+      @click="changeLang"
     >
-      {{ currentLang.textLeft }}
+      {{ $t(currentLang.textLeft) }}
     </div>
     <div
       class="center"
@@ -15,8 +16,11 @@
       <van-icon name="minus" />
       <van-icon name="arrow" />
     </div>
-    <div class="right">
-      {{ currentLang.textRight }}
+    <div
+      class="right"
+      @click="changeLang"
+    >
+      {{ $t(currentLang.textRight) }}
     </div>
   </div>
 </template>

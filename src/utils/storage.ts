@@ -3,7 +3,7 @@ import { ILocalResult } from '@/defineds/utils/storage'
 /**
  * 保存本地缓存（异步）
  */
-export function setLocalStorege<T> (key:string, value:T) {
+export function setLocalStorage<T> (key:string, value:T) {
   uni.setStorage({
     key,
     data: JSON.stringify(value),
@@ -18,7 +18,7 @@ export function setLocalStorege<T> (key:string, value:T) {
 /**
  * 保存本地缓存（同步）
  */
-export function setLocalStoregeSync<T> (key:string, value:T) {
+export function setLocalStorageSync<T> (key:string, value:T) {
   try {
     uni.setStorageSync(key, JSON.stringify(value))
   } catch (e) {
@@ -29,11 +29,13 @@ export function setLocalStoregeSync<T> (key:string, value:T) {
 /**
  * 获取本地缓存（异步）
  */
-export function getLocalStorege<T> (key:string):Promise<ILocalResult<T>> {
+export function getLocalStorage<T> (key:string):Promise<ILocalResult<T>> {
   return new Promise((resolve) => {
     uni.getStorage({
       key,
       success (res) {
+        console.log('res', res)
+
         resolve({
           data: JSON.parse(res.data),
           code: 200,
@@ -51,7 +53,7 @@ export function getLocalStorege<T> (key:string):Promise<ILocalResult<T>> {
 /**
  * 获取本地缓存（同步）
  */
-export function getLocalStoregeSync<T> (key:string):Promise<ILocalResult<T>> {
+export function getLocalStorageSync<T> (key:string):Promise<ILocalResult<T>> {
   return new Promise((resolve) => {
     try {
       const value = uni.getStorageSync(key)
@@ -112,8 +114,8 @@ export function clearStorage<T> ():Promise<ILocalResult<T>> {
 }
 
 export default {
-  setLocalStorege,
-  setLocalStoregeSync,
-  getLocalStorege,
-  getLocalStoregeSync,
+  setLocalStorage,
+  setLocalStorageSync,
+  getLocalStorage,
+  getLocalStorageSync,
 }

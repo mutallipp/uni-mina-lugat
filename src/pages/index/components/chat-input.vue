@@ -4,7 +4,7 @@
       <input
         v-model="content"
         type="text"
-        placeholder="请输入文本"
+        :placeholder="$t('home.chatInput.inputHolderL')"
       >
     </div>
     <div class="send-msg">
@@ -12,7 +12,7 @@
         type="primary"
         @click="onSendMessage"
       >
-        发送
+        {{ $t('home.chatInput.sendMsg') }}
       </van-button>
     </div>
   </div>
@@ -24,11 +24,13 @@ import * as utils from '@utils/index'
 import { UserGetterType } from '@store/modules/user/constants/getter'
 import { UserActionTypes } from '@/store/modules/user/constants/action'
 import { computed, defineComponent, ref } from 'vue'
+import { useI18n } from '@lang/index'
 
 export interface IChatInputEmit {
   emit(e:'sendMessage', content:string):void
 }
 function useChatInput (props:any, { emit }:IChatInputEmit) {
+  const { t } = useI18n()
   const store = useStore()
   const content = ref('')
   const getUserInfoVisible = ref(true)
@@ -39,7 +41,7 @@ function useChatInput (props:any, { emit }:IChatInputEmit) {
 
   const onSendMessage = ():void => {
     if (!content.value) {
-      utils.toast('请输入翻译内容', 'error')
+      utils.toast(t('home.chatInput.needInputContent'), 'error')
       return
     }
     if (!hasUserInfo.value) {

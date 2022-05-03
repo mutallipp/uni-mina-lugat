@@ -57,7 +57,7 @@ function useGetUserInfo () {
           avatarUrl,
           nickName,
         }
-        storage.setLocalStoregeSync<ISetLocalUserInfo>(LocalStorageKeyType.USER_INFO, { userInfo, expired })
+        storage.setLocalStorageSync<ISetLocalUserInfo>(LocalStorageKeyType.USER_INFO, { userInfo, expired })
         store.dispatch(UserActionTypes.SET_MEMBER_INFO, userInfo)
         store.dispatch(UserActionTypes.CHANGE_GET_USER_INFO_VISIBLE, false)
       },

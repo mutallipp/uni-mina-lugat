@@ -14,4 +14,8 @@ export enum SettingMutationTypes {
    * 设置手机系统信息
    */
   SET_SETTING_INFO = 'SET_SETTING_INFO',
+  /**
+   * 修改语言
+   */
+  SET_LANGUAGE = 'SET_LANGUAGE',
 }

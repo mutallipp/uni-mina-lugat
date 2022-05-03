@@ -1,7 +1,7 @@
 import { MutationTree } from 'vuex'
 import { SettingMutationTypes } from './constants/mutations'
 import { SettingMutations } from './types/mutations'
-import { ISettingState, ISystemInfo } from './types/state'
+import { ISettingState, ISystemInfo, LangType } from './types/state'
 
 /**
  * 用户 mutations
@@ -24,5 +24,11 @@ export const settingMutations:MutationTree<ISettingState> &SettingMutations = {
       ...systemInfo,
     }
     Object.assign(state.systemInfo, newState)
+  },
+  [SettingMutationTypes.SET_LANGUAGE] (state:ISettingState, lang:LangType) {
+    const newState = {
+      language: lang,
+    }
+    Object.assign(state, newState)
   },
 }

@@ -2,7 +2,7 @@ import { IRootState } from '@/store/types'
 import { GetterTree } from 'vuex'
 import { SettingGetterType } from './constants/getter'
 import { SettingGetters } from './types/getter'
-import { ISettingState, ITabBarItem } from './types/state'
+import { ISettingState, ITabBarItem, LangType } from './types/state'
 
 /**
  * 用户应用的 getters
@@ -19,5 +19,8 @@ export const settingGetters:GetterTree<ISettingState, IRootState> &SettingGetter
   },
   [SettingGetterType.IS_IPHONE] (state:ISettingState): boolean {
     return state?.systemInfo?.model.split(' ').some(item => ['iPhone', 'iphone'].includes(item))
+  },
+  [SettingGetterType.SELECT_LANG] (state:ISettingState): LangType {
+    return state?.language || 'uy'
   },
 }

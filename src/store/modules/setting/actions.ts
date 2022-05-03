@@ -1,5 +1,6 @@
 import { IRootState } from '@store/types'
 import { ActionTree } from 'vuex'
+import * as storage from '@/utils/storage'
 import { SettingActionTypes } from './constants/action'
 import { ISettingState } from './types/state'
 import { SettingActions } from './types/actions'
@@ -24,10 +25,16 @@ export const settingActions:ActionTree<ISettingState, IRootState> & SettingActio
           model = '', // 手机型号
           screenWidth = 0, screenHeight = 0,
         } = res
+        console.log('getSystemInfo', res)
+
         commit(SettingMutationTypes.SET_SETTING_INFO, {
           brand, model, screenWidth, screenHeight,
         })
       },
     })
+  },
+  async [SettingActionTypes.SET_LANGUAGE] ({ commit }, lang) {
+    storage.setLocalStorage<string>('language', lang)
+    commit(SettingMutationTypes.SET_LANGUAGE, lang)
   },
 }

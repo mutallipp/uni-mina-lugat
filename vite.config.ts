@@ -14,6 +14,7 @@ export default defineConfig({
       '@api': _resolve('./src/api'),
       '@layout': _resolve('./src/layout'),
       '@hooks': _resolve('./src/hooks'),
+      '@lang': _resolve('./src/lang'),
       '@components': _resolve('./src/components'),
       '@defineds': _resolve('./src/defineds'),
       '@directive': _resolve('./src/directive'),

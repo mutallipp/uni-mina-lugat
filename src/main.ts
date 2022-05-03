@@ -3,6 +3,7 @@ import { setupStore } from '@store/index'
 // import componentRegister from '@components/register'
 // import { setupComponents } from '@components/index'
 import Layout from '@layout/index.vue'
+import i18n from './lang/index'
 
 import App from './App.vue'
 
@@ -13,6 +14,9 @@ export function createApp () {
   // 挂在自定义全局组件
   // eslint-disable-next-line no-use-before-define
   setupComponents(app)
+
+  // 挂载i18n
+  app.use(i18n)
   return {
     app,
   }

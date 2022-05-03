@@ -18,5 +18,9 @@ export enum SettingGetterType {
    * 是否苹果手机
    */
   IS_IPHONE = 'IS_IPHONE',
+  /**
+   * 被选中的语言
+   */
+  SELECT_LANG = 'SELECT_LANG',
 
 }

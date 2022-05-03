@@ -17,7 +17,7 @@
           />
         </div>
         <div class="name">
-          {{ item.title }}
+          {{ $t(item.title) }}
         </div>
       </button>
       <div
@@ -32,7 +32,7 @@
           />
         </div>
         <div class="name">
-          {{ item.title }}
+          {{ $t(item.title) }}
         </div>
       </div>
     </template>
@@ -44,6 +44,7 @@ import {
   defineComponent,
 } from 'vue'
 import * as utils from '@utils/index'
+import { useI18n } from '@lang/index'
 
 interface IDataSourseItem {
   name:string,
@@ -51,21 +52,18 @@ interface IDataSourseItem {
   icon:string,
   to?:string,
 }
-// <van-icon name="info-o" />
-// interface IGirdProps {
-//   dataSourse:Array<IDataSourseItem>
-// }
 function useGird () {
+  const { t } = useI18n()
   const gridList:IDataSourseItem[] = [
     {
       icon: 'info-o',
-      title: 'كىچىك پروگرامما توغرىسىدا',
+      title: 'me.grid.mina',
       name: 'mina',
       to: '/pages/me/info',
     },
     {
       icon: 'service-o',
-      title: '联系我们',
+      title: 'me.grid.contact',
       name: 'contact',
       to: '/pages/me/info',
     },
@@ -78,7 +76,7 @@ function useGird () {
         })
       }
     } else {
-      utils.toast('此功能还没开发', 'error')
+      utils.toast(t('static.common.doNotDev'), 'error')
     }
   }
 

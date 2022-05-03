@@ -17,14 +17,21 @@
         <van-cell-group inset>
           <div @click.stop="clickClearCash('message')">
             <van-cell
-              title="清除翻译缓存"
+              :title="$t('me.setting.clearTranslateCash')"
               is-link
               arrow-direction="right"
             />
           </div>
           <div @click.stop="clickClearCash('all')">
             <van-cell
-              title="清除全部缓存"
+              :title="$t('me.setting.clearAllCash')"
+              is-link
+              arrow-direction="right"
+            />
+          </div>
+          <div @click.stop="clickClearCash('changeLang')">
+            <van-cell
+              :title="$t('me.setting.changeLang')"
               is-link
               arrow-direction="right"
             />
@@ -40,16 +47,18 @@ import { defineComponent, ref } from 'vue'
 import * as storage from '@utils/storage'
 import * as utils from '@utils/index'
 import { LocalStorageKeyType } from '@utils/constanst/storage'
+import { useI18n } from '@lang/index'
 import { ISettingEmit } from './types/setting'
 
 function useSetting (props:any, { emit }:ISettingEmit) {
+  const { t } = useI18n()
   const settingVisible = ref(true)
 
   const onClose = () => {
     console.log('onClose')
     emit('update:visible', false)
   }
-  const clickClearCash = async (key:'message'|'all') => {
+  const clickClearCash = async (key:'message'|'all'|'changeLang') => {
     let flag = -100
     switch (key) {
       case 'message': {
@@ -65,11 +74,15 @@ function useSetting (props:any, { emit }:ISettingEmit) {
       default:
         break
     }
-    if (flag === 200) {
-      utils.toast('清除成功', 'success')
-    } else {
-      utils.toast('清除失败', 'error')
+    if (['message', 'all'].includes(key)) {
+      if (flag === 200) {
+        utils.toast(t('me.setting.cashSeccses'), 'success')
+      } else {
+        utils.toast(t('me.setting.cashFail'), 'error')
+      }
     }
+
+    emit('click', key)
     emit('update:visible', false)
   }
   return {
