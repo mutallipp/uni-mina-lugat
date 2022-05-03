@@ -10,7 +10,9 @@
     <slot>
     <!-- 我们希望把主要内容放这里 -->
     </slot>
-    <slot name="footer" />
+    <div class="foter-slot">
+      <slot name="footer" />
+    </div>
 
     <div
       v-show="showFooter"
@@ -78,9 +80,15 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .layout{
+  position: relative;
   background-color: $default-background;
   padding: 20px;
   height: calc(100vh - var(--footer-height));
-
+  .foter-slot{
+    position: absolute;
+    left: 0px;
+    bottom: calc(20px + var(--footer-height));
+    width: 100vw;
+  }
 }
 </style>

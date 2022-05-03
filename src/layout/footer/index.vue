@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tab-bar-wrap bg-blue">
     <van-tabbar
       :active="active"
       @change="onChange"
@@ -70,5 +70,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
+.tab-bar-wrap{
+background-color: blue;
+}
 </style>

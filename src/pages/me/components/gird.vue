@@ -10,9 +10,9 @@
         open-type="contact"
         style="border: none;"
       >
-        <div class="icon">
+        <div class="icon m-t-5">
           <van-icon
-            size="50px"
+            size="40px"
             :name="item.icon"
           />
         </div>
@@ -25,9 +25,9 @@
         class="gird-item"
         @click="handleClick(item)"
       >
-        <div class="icon">
+        <div class="icon m-t-5">
           <van-icon
-            size="50px"
+            size="40px"
             :name="item.icon"
           />
         </div>

@@ -51,6 +51,11 @@
     <div class="grid-content m-x-20">
       <m-gird />
     </div>
+    <template #footer>
+      <div class="footer">
+        Powerd by Mutallip
+      </div>
+    </template>
     <m-setting
       v-if="settingVisible"
       v-model:visible="settingVisible"
@@ -136,5 +141,13 @@ export default defineComponent({
 }
 .content{
   margin-top: -60px;
+}
+.footer{
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 22;
+  font-weight: 800;
+  // margin-left: -$mainContentPadding;
+  width: 100%;
 }
 </style>
