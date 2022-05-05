@@ -46,6 +46,16 @@ export interface ISystemInfo{
  */
 export type LangType = 'zh'|'uy'
 /**
+ * 翻译内容
+ */
+export interface IMessageItem {
+  _id: number,
+  fromContent: string,
+  toContent: string,
+  isSelf: boolean,
+  time: number,
+}
+/**
  * 设置相关应用状态类型
  */
 export interface ISettingState {
@@ -74,4 +84,9 @@ export interface ISettingState {
    * 当前选中的语言
    */
   language:LangType,
+  /**
+   * 翻译消息队列
+   */
+  messageList:Array<IMessageItem>
+
 }

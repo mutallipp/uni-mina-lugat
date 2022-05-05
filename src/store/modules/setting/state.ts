@@ -36,5 +36,6 @@ export const settingState: ISettingState = {
     screenHeight: 0,
   },
   language: 'uy',
+  messageList: [],
 
 }

@@ -49,24 +49,26 @@
 <script lang="ts">
 import {
   computed,
-  defineComponent, nextTick, PropType, ref, toRefs,
+  defineComponent, nextTick, ref,
 } from 'vue'
 import { timeStamp2time } from '@utils/index'
 import { useClientRect } from '@/hooks/client-rect'
 import { useStore } from '@/store'
 import { SettingGetterType } from '@store/modules/setting/constants/getter'
+import { IMessageItem } from '@store/modules/setting/types/state'
 import MsgAvatar from './avatar.vue'
 import MsgContent from './content.vue'
-import { IMessageItem, IMessageListProps } from '../types/message-list'
 
-function useMessageList (props:IMessageListProps) {
+function useMessageList () {
   const store = useStore()
-  const { messageList } = toRefs(props)
   const homeHeaderRect = useClientRect('.header')
   const chatInputRect = useClientRect('.chat-input')
   const msgId = ref('')
   const isIPhone = computed<boolean>(() => {
     return store.getters[SettingGetterType.IS_IPHONE]
+  })
+  const messageList = computed<Array<IMessageItem>>(() => {
+    return store.getters[SettingGetterType.MESSAGE_LIST]
   })
   const messageListHeight = computed(() => {
     /**
@@ -112,6 +114,7 @@ function useMessageList (props:IMessageListProps) {
   return {
     msgId,
     messageListHeight,
+    messageList,
 
     timeStamp2time,
     scrolltoupper,
@@ -124,19 +127,10 @@ export default defineComponent({
     'msg-avatar': MsgAvatar,
     'msg-content': MsgContent,
   },
-  props: {
-    // messageListHeight: {
-    //   type: String,
-    //   default: '0px',
-    // },
-    messageList: {
-      type: Array as PropType<Array<IMessageItem>>,
-      default: () => [],
-    },
-  },
-  setup (props) {
+  props: {},
+  setup () {
     return {
-      ...useMessageList(props),
+      ...useMessageList(),
     }
   },
 })

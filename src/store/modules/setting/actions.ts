@@ -3,7 +3,7 @@ import { ActionTree } from 'vuex'
 import * as storage from '@/utils/storage'
 import { SettingActionTypes } from './constants/action'
 import { ISettingState } from './types/state'
-import { SettingActions } from './types/actions'
+import { IMessageListOption, SettingActions } from './types/actions'
 import { SettingMutationTypes } from './constants/mutations'
 
 /**
@@ -34,5 +34,8 @@ export const settingActions:ActionTree<ISettingState, IRootState> & SettingActio
   async [SettingActionTypes.SET_LANGUAGE] ({ commit }, lang) {
     storage.setLocalStorage<string>('language', lang)
     commit(SettingMutationTypes.SET_LANGUAGE, lang)
+  },
+  async [SettingActionTypes.SET_MESSAGE_LIST] ({ commit }, messageListOption:IMessageListOption) {
+    commit(SettingMutationTypes.SET_MESSAGE_LIST, messageListOption)
   },
 }

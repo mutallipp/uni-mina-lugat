@@ -112,7 +112,7 @@ export const toast = (
  * 睡眠函数
  * @param wait 睡眠时间
  */
-export function sleep (wait:500):Promise<void> {
+export function sleep (wait = 500):Promise<void> {
   return new Promise(resolve => setTimeout(resolve, wait))
 }
 

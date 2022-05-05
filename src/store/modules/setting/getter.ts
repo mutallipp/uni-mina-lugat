@@ -2,7 +2,9 @@ import { IRootState } from '@/store/types'
 import { GetterTree } from 'vuex'
 import { SettingGetterType } from './constants/getter'
 import { SettingGetters } from './types/getter'
-import { ISettingState, ITabBarItem, LangType } from './types/state'
+import {
+  IMessageItem, ISettingState, ITabBarItem, LangType,
+} from './types/state'
 
 /**
  * 用户应用的 getters
@@ -22,5 +24,8 @@ export const settingGetters:GetterTree<ISettingState, IRootState> &SettingGetter
   },
   [SettingGetterType.SELECT_LANG] (state:ISettingState): LangType {
     return state?.language || 'uy'
+  },
+  [SettingGetterType.MESSAGE_LIST] (state:ISettingState): Array<IMessageItem> {
+    return state?.messageList || []
   },
 }

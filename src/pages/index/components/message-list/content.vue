@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, toRefs } from 'vue'
-import { IMessageItem } from '../types/message-list'
+import { IMessageItem } from '@store/modules/setting/types/state'
 
 function useContent (props:{msgItem:IMessageItem}) {
   const { msgItem } = toRefs(props)

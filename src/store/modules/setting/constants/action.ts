@@ -14,4 +14,8 @@ export enum SettingActionTypes {
    * 修改语言
    */
   SET_LANGUAGE ='SET_LANGUAGE',
+  /**
+   * 设置翻译消息队列
+   */
+  SET_MESSAGE_LIST ='SET_MESSAGE_LIST',
 }

@@ -22,5 +22,9 @@ export enum SettingGetterType {
    * 被选中的语言
    */
   SELECT_LANG = 'SELECT_LANG',
+  /**
+   * 翻译消息队列
+   */
+  MESSAGE_LIST = 'MESSAGE_LIST',
 
 }

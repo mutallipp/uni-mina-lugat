@@ -48,10 +48,13 @@ import * as storage from '@utils/storage'
 import * as utils from '@utils/index'
 import { LocalStorageKeyType } from '@utils/constanst/storage'
 import { useI18n } from '@lang/index'
+import { useStore } from '@/store'
+import { SettingActionTypes } from '@/store/modules/setting/constants/action'
 import { ISettingEmit } from './types/setting'
 
 function useSetting (props:any, { emit }:ISettingEmit) {
   const { t } = useI18n()
+  const store = useStore()
   const settingVisible = ref(true)
 
   const onClose = () => {
@@ -63,6 +66,7 @@ function useSetting (props:any, { emit }:ISettingEmit) {
     switch (key) {
       case 'message': {
         const { code } = await storage.removeStorage(LocalStorageKeyType.MESSAGE_LIST)
+        store.dispatch(SettingActionTypes.SET_MESSAGE_LIST, { messageList: [] })
         flag = code
         break
       }

@@ -4,12 +4,11 @@
   >
     <!-- header -->
     <div class="header">
-      <home-header @onChange="onChangeLang" />
+      <home-header :current-lang="currentLang" />
     </div>
     <!-- 消息列表 -->
     <message-list
       ref="messageListRef"
-      :message-list="messageList"
     />
     <!--    聊天输入框-->
     <div class="chat-input">
@@ -20,65 +19,69 @@
 
 <script lang="ts">
 import {
+  computed,
   defineComponent, onMounted, ref,
 } from 'vue'
-import store from '@/store'
+import { useStore } from '@/store'
 import * as storage from '@utils/storage'
 import * as utils from '@utils/index'
 import { useSharePage } from '@hooks/share'
 import { onHide } from '@dcloudio/uni-app'
 import { translateTextApi } from '@api/IIndex/index'
 import { LocalStorageKeyType } from '@/utils/constanst/storage'
-import { ILangItem } from './components/types/header'
+import { IMessageItem } from '@store/modules/setting/types/state'
+import { SettingGetterType } from '@/store/modules/setting/constants/getter'
+import { SettingActionTypes } from '@/store/modules/setting/constants/action'
 import HomeHeader from './components/header.vue'
 import MessageList from './components/message-list/message-list.vue'
 import ChatInput from './components/chat-input.vue'
-import { IMessageItem } from './components/types/message-list'
-import { langList } from './components/constants/header'
 
 function useHomePage () {
+  const store = useStore()
   const { onShareAppMessage, onShareTimeline } = useSharePage()
 
   const title = ref('muzat')
 
-  const currentLang = ref<ILangItem>(langList[0])
+  const currentLang = ref<number>(1)
 
   const messageListRef = ref<any>()
 
-  const messageList = ref<Array<IMessageItem>>([])
+  const messageList = computed<Array<IMessageItem>>(() => {
+    return store.getters[SettingGetterType.MESSAGE_LIST]
+  })
 
-  const onChangeLang = (lang:ILangItem):void => {
-    currentLang.value = lang
-  }
+  // const onChangeLang = (lang:number):void => {
+  //   currentLang.value = lang
+  // }
   const onSendMessage = async (currentMsg:string):Promise<void> => {
-    console.log(currentMsg)
     const data = await translateTextApi<any>({
-      convert: currentLang.value.lang,
+      convert: currentLang.value,
       content: currentMsg,
-      // from: 'zh',
-      // to: 'en',
-      // text: '我爱你',
-      // token: '7oet2Tst1xhW7H7Gs65Vnl1BbPffdy4J',
     })
 
     if (!data.result || data.status === 1) {
       utils.toast(data.result)
       return
     }
-    messageList.value.push({
+
+    const messageItem:IMessageItem = {
       _id: (new Date()).valueOf(),
       fromContent: currentMsg,
       toContent: data.result,
-      isSelf: currentLang.value?.lang === 1,
+      isSelf: currentLang.value === 1,
       // isSelf: false,
       time: (new Date()).valueOf(),
-    })
+    }
+    store.dispatch(SettingActionTypes.SET_MESSAGE_LIST, { messageList: [messageItem], isReload: false })
+    console.log('messageList', messageList.value)
+
     messageListRef.value.scroll2bottom()
   }
   const _init = async () => {
     const localMsgList = await storage.getLocalStorageSync<Array<IMessageItem>>(LocalStorageKeyType.MESSAGE_LIST)
     if (localMsgList.code === 200) {
-      messageList.value = localMsgList.data as Array<IMessageItem>
+      store.dispatch(SettingActionTypes.SET_MESSAGE_LIST, { messageList: localMsgList.data })
+      await utils.sleep()
       messageListRef.value.scroll2bottom()
     }
   }
@@ -94,10 +97,11 @@ function useHomePage () {
     title,
     messageList,
     messageListRef,
+    currentLang,
 
     onShareAppMessage,
     onShareTimeline,
-    onChangeLang,
+    // onChangeLang,
     onSendMessage,
   }
 }
