@@ -2,12 +2,13 @@
  * 语言对象
  */
 export interface ILangItem {
-  value:number,
-  text:string,
+  lang:number,
+  textLeft:string,
+  textRight:string,
 }
 /**
  * home header props
  */
 export interface IHomeHeaderEmit {
-  emit(key:string, obj:number):void
+  emit(key:string, obj:ILangItem):void
 }

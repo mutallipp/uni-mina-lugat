@@ -4,7 +4,7 @@
   >
     <!-- header -->
     <div class="header">
-      <home-header :current-lang="currentLang" />
+      <home-header @onChange="onChangeLang" />
     </div>
     <!-- 消息列表 -->
     <message-list
@@ -32,9 +32,11 @@ import { LocalStorageKeyType } from '@/utils/constanst/storage'
 import { IMessageItem } from '@store/modules/setting/types/state'
 import { SettingGetterType } from '@/store/modules/setting/constants/getter'
 import { SettingActionTypes } from '@/store/modules/setting/constants/action'
+import { ILangItem } from './components/types/header'
 import HomeHeader from './components/header.vue'
 import MessageList from './components/message-list/message-list.vue'
 import ChatInput from './components/chat-input.vue'
+import { langList } from './components/constants/header'
 
 function useHomePage () {
   const store = useStore()
@@ -42,7 +44,7 @@ function useHomePage () {
 
   const title = ref('muzat')
 
-  const currentLang = ref<number>(1)
+  const currentLang = ref<ILangItem>(langList[0])
 
   const messageListRef = ref<any>()
 
@@ -50,12 +52,12 @@ function useHomePage () {
     return store.getters[SettingGetterType.MESSAGE_LIST]
   })
 
-  // const onChangeLang = (lang:number):void => {
-  //   currentLang.value = lang
-  // }
+  const onChangeLang = (lang:ILangItem):void => {
+    currentLang.value = lang
+  }
   const onSendMessage = async (currentMsg:string):Promise<void> => {
     const data = await translateTextApi<any>({
-      convert: currentLang.value,
+      convert: currentLang.value.lang,
       content: currentMsg,
     })
 
@@ -68,7 +70,7 @@ function useHomePage () {
       _id: (new Date()).valueOf(),
       fromContent: currentMsg,
       toContent: data.result,
-      isSelf: currentLang.value === 1,
+      isSelf: currentLang.value?.lang === 1,
       // isSelf: false,
       time: (new Date()).valueOf(),
     }
@@ -97,11 +99,10 @@ function useHomePage () {
     title,
     messageList,
     messageListRef,
-    currentLang,
 
     onShareAppMessage,
     onShareTimeline,
-    // onChangeLang,
+    onChangeLang,
     onSendMessage,
   }
 }
