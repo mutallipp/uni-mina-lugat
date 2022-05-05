@@ -10,7 +10,7 @@
         :show="visible"
         close-on-click-overlay
         position="right"
-        custom-style="height: 100%;width:40%;"
+        custom-style="height: 100%;width:60%;"
         :close="onClose"
         :click-overlay="onClose"
       >

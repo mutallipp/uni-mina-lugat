@@ -34,8 +34,6 @@ export function getLocalStorage<T> (key:string):Promise<ILocalResult<T>> {
     uni.getStorage({
       key,
       success (res) {
-        console.log('res', res)
-
         resolve({
           data: JSON.parse(res.data),
           code: 200,

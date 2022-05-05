@@ -7,7 +7,10 @@ export default {
     cashFail: 'تازىلاش مەغلۇپ بولدى',
   },
   grid: {
-    mina: 'كىچىك پروگرامما توغرىسىدا',
-    contact: 'ئالاقىلىشش',
+    mina: 'ئەپچاق ھەققىدە',
+    contact: 'ئالاقىلىشاي',
+  },
+  changeLang: {
+    choseLang: 'تاللاش تىلى',
   },
 }

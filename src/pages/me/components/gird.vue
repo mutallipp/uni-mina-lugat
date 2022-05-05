@@ -5,10 +5,10 @@
       :key="index"
     >
       <button
-        v-if="item.name === 'contact'"
         class="gird-item"
-        open-type="contact"
+        :open-type="item.name === 'contact'&&'contact'|| ''"
         style="border: none;"
+        @click="handleClick(item)"
       >
         <div class="icon m-t-5">
           <van-icon
@@ -20,7 +20,7 @@
           {{ $t(item.title) }}
         </div>
       </button>
-      <div
+      <!-- <div
         v-else
         class="gird-item"
         @click="handleClick(item)"
@@ -34,7 +34,7 @@
         <div class="name">
           {{ $t(item.title) }}
         </div>
-      </div>
+      </div> -->
     </template>
   </div>
 </template>

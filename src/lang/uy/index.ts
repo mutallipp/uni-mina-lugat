@@ -17,7 +17,7 @@ export default {
     },
     language: {
       uyghur: 'ئۇيغۇر تىلى',
-      chinese: 'دۆلەت تىلى',
+      chinese: '中文',
     },
   },
 }

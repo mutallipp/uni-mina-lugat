@@ -4,8 +4,8 @@ export default {
     uyLang: 'ئۇيغۇرچە',
   },
   chatInput: {
-    inputHolderL: 'تېكىست كىرگۈزۈڭ',
+    inputHolderL: 'مەزمۇننى كىرگۈزۈڭ',
     needInputContent: 'تەرجىمە مەزمۇنى كىرگۈزۈڭ',
-    sendMsg: 'يوللاپ',
+    sendMsg: 'يوللاش',
   },
 }

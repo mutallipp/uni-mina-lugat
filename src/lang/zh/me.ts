@@ -10,4 +10,7 @@ export default {
     mina: '小程序',
     contact: '联系我们',
   },
+  changeLang: {
+    choseLang: '请选择语言',
+  },
 }

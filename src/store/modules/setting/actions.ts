@@ -25,8 +25,6 @@ export const settingActions:ActionTree<ISettingState, IRootState> & SettingActio
           model = '', // 手机型号
           screenWidth = 0, screenHeight = 0,
         } = res
-        console.log('getSystemInfo', res)
-
         commit(SettingMutationTypes.SET_SETTING_INFO, {
           brand, model, screenWidth, screenHeight,
         })

@@ -12,6 +12,7 @@
         class="select-lang"
         @click.stop="()=>{}"
       >
+        <div>{{ $t('me.changeLang.choseLang') }}</div>
         <select-lang @changeLang="$emit('update:visible',false)" />
       </div>
     </van-popup>
@@ -47,8 +48,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .select-lang{
-  display: flex;
-  align-items: center;
   margin-left: 10px;
   margin-top: 20px;
 }

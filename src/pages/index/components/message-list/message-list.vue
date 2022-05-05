@@ -89,12 +89,10 @@ function useMessageList (props:IMessageListProps) {
   })
   // 消息滚动到底部
   const scroll2bottom = () => {
-    console.log('scroll2bottom')
-
     msgId.value = ''
     nextTick(() => {
       // msgId.value = `msgItem-${0}`
-      msgId.value = `msgItem-${messageList.value?.[messageList?.value?.length - 1]._id}`
+      msgId.value = `msgItem-${messageList.value?.[messageList?.value?.length - 1]?._id}`
     })
   }
   // 消息滚动到顶部
