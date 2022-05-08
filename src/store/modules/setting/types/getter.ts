@@ -1,6 +1,6 @@
 import { SettingGetterType } from '../constants/getter'
 import {
-  IMessageItem, ISettingState, ITabBarItem, LangType,
+  IMessageItem, ISettingState, ISystemInfo, ITabBarItem, LangType,
 } from './state'
 
 /**
@@ -13,4 +13,5 @@ export type SettingGetters = {
   [SettingGetterType.IS_IPHONE] (state:ISettingState) :boolean,
   [SettingGetterType.SELECT_LANG] (state:ISettingState) :LangType,
   [SettingGetterType.MESSAGE_LIST] (state:ISettingState) :Array<IMessageItem>,
+  [SettingGetterType.SYSTEM_INFO] (state:ISettingState) :ISystemInfo,
 }

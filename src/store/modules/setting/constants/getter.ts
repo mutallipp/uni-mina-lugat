@@ -19,6 +19,10 @@ export enum SettingGetterType {
    */
   IS_IPHONE = 'IS_IPHONE',
   /**
+   * 系统信息
+   */
+  SYSTEM_INFO = 'SYSTEM_INFO',
+  /**
    * 被选中的语言
    */
   SELECT_LANG = 'SELECT_LANG',

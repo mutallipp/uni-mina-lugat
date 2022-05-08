@@ -77,6 +77,7 @@ export default defineComponent({
   background-color: white;
   align-items: flex-end;
   padding-bottom: 10px;
+  margin-top: 5px;
   .msg-input{
     width: 80%;
     height: 100%;

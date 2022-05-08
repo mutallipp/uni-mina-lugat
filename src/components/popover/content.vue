@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="popover-content-wrap">
     <slot />
   </div>
 </template>
@@ -23,5 +23,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
+.popover-content-wrap{
+  background-color: $white;
+}
 </style>

@@ -3,7 +3,7 @@ import { GetterTree } from 'vuex'
 import { SettingGetterType } from './constants/getter'
 import { SettingGetters } from './types/getter'
 import {
-  IMessageItem, ISettingState, ITabBarItem, LangType,
+  IMessageItem, ISettingState, ISystemInfo, ITabBarItem, LangType,
 } from './types/state'
 
 /**
@@ -27,5 +27,8 @@ export const settingGetters:GetterTree<ISettingState, IRootState> &SettingGetter
   },
   [SettingGetterType.MESSAGE_LIST] (state:ISettingState): Array<IMessageItem> {
     return state?.messageList || []
+  },
+  [SettingGetterType.SYSTEM_INFO] (state:ISettingState): ISystemInfo {
+    return state?.systemInfo
   },
 }

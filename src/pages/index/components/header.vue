@@ -3,7 +3,7 @@
     class="header-container"
     :style="headerStyle"
   >
-    <div
+    <!-- <div
       class="left"
       @click="changeLang"
     >
@@ -21,46 +21,67 @@
       @click="changeLang"
     >
       {{ $t(currentLang.textRight) }}
-    </div>
+    </div> -->
+    <m-select
+      v-model:value="lang"
+      :data="langList"
+      :option="{label:'text',value:'value'}"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, toRefs } from 'vue'
 import { useStore } from '@/store'
 import { SettingGetterType } from '@/store/modules/setting/constants/getter'
-import { IHomeHeaderEmit, ILangItem } from './types/header'
+import Select from '@components/select/index.vue'
+import { IHomeHeaderEmit, IHomeHeaderProps } from './types/header'
 import { langList } from './constants/header'
 
-function useHomeHeader (props:any, { emit }:IHomeHeaderEmit) {
+function useHomeHeader (props:IHomeHeaderProps, { emit }:IHomeHeaderEmit) {
   const store = useStore()
-  const activeIndex = ref(0)
-
+  const { currentLang } = toRefs(props)
   const baseColor = computed(() => store.getters[SettingGetterType.BASE_COLOR])
-  const currentLang = computed<ILangItem>(() => langList[activeIndex.value])
+  // const currentLang = computed<ILangItem>(() => langList[activeIndex.value])
+  const lang = computed({
+    get () {
+      return currentLang.value
+    },
+    set (val:number) {
+      emit('update:currentLang', val)
+    },
+  })
+  // const currentLang = ref(1)
   const headerStyle = computed(() => {
     return {
       color: baseColor.value,
     }
   })
-
-  const changeLang = ():void => {
-    activeIndex.value = activeIndex.value === 0 ? 1 : 0
-    emit('onChange', currentLang.value)
-  }
+  // const changeLang = ():void => {
+  //   activeIndex.value = activeIndex.value === 0 ? 1 : 0
+  //   emit('onChange', currentLang.value)
+  // }
   return {
     baseColor,
     headerStyle,
     currentLang,
+    langList,
+    lang,
 
-    changeLang,
+    // changeLang,
   }
 }
 export default defineComponent({
   components: {
+    'm-select': Select,
   },
-  props: {},
-  emits: ['onChange'],
+  props: {
+    currentLang: {
+      type: Number,
+      default: 1,
+    },
+  },
+  emits: ['update:currentLang'],
   setup (props, context) {
     return {
       ...useHomeHeader(props, context),

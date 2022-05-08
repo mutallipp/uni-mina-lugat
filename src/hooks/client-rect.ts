@@ -31,7 +31,7 @@ export const useClientRect = (selector: string): Ref<UniApp.NodeInfo> => {
 
   nextTick(() => {
     getTabBarHeight()
-    setTimeout(getTabBarHeight, 500)
+    setTimeout(getTabBarHeight, 1000)
   })
 
   return clientRect as Ref<UniApp.NodeInfo>
