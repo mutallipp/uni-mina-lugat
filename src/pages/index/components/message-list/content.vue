@@ -69,10 +69,10 @@ export default defineComponent({
     position: absolute;
     top: 5px;
     &.left{
-      left: 8px
+      left: 5px
     }
     &.right{
-      right: 8px
+      right: 5px
     }
   }
   &.left{

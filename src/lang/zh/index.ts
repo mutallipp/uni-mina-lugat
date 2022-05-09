@@ -2,8 +2,8 @@ import home from './home'
 import me from './me'
 
 export default {
-  home,
-  me,
+  ...home,
+  ...me,
   static: {
     common: {
       doNotDev: '此功能还没开发',
