@@ -1,7 +1,7 @@
 /**
 创建小三角
 */
-@mixin create-triangle($direaction:'left',$height:16px,$distant:18px) {
+@mixin create-small-triangle($direaction:'left',$height:16px,$distant:18px) {
   &::before{
     content: "";
     transform: rotate(45deg);
@@ -10,28 +10,25 @@
     display: inline-block;
     overflow: hidden;
     width: $height;
+    height: $height;
 
     @if $direaction == 'left' {
       top: $distant;
-      height: $height;
       left: -$height / 2;
       right: initial;
     }
     @else if $direaction == 'top' {
       left: $distant;
-      height: $height;
       top: -$height / 2;
       bottom: initial;
     }
     @else if $direaction == 'right' {
       top: $distant;
-      height: $height;
       right: -$height / 2;
       left: initial;
     }
     @else if $direaction == 'bottom' {
       left: $distant;
-      height: $height;
       bottom: -$height / 2;
       top: initial;
     }
@@ -81,34 +78,55 @@
     overflow-y: hidden;
   }
 }
-
-@mixin crete-small-triangle() {
-  &::before{
+/**
+创建小三角
+*/
+@mixin create-triangle($height:16px,$direaction:'left',$distant:50%,$border-line-px:'') {
+  &:after {
+    content: '';
     position: absolute;
-    left: 40%!important;
-    transform: translate(-40%);
-    bottom: -44px;
-    width: 0;
-    height: 0;
-    left: auto;
-    border-left: 8px solid transparent;  /* 左边框的宽 */
-    border-right: 8px solid transparent; /* 右边框的宽 */
-    border-bottom: 8px solid red; /* 下边框的长度|高,以及背景色 */
-    font-size: 0;
-    line-height: 0;
-  }
-  &::after{
-    position: absolute;
-    left: 40%!important;
-    transform: translate(-40%);
-    bottom: -42px;
-    width: 0;
-    height: 0;
-    left: auto;
-    border-left: 8px solid transparent;  /* 左边框的宽 */
-    border-right: 8px solid transparent; /* 右边框的宽 */
-    border-bottom: 8px solid red; /* 下边框的长度|高,以及背景色 */
-    font-size: 0;
-    line-height: 0;
+    width: $height;
+    height: $height;
+    display: inline-block;
+    vertical-align: middle;
+    transform-origin: center;
+    transform: translateY(-1px) rotate(45deg);
+    background-color: inherit;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    // z-index: 10;
+    
+    @if $direaction == 'left' {
+      left: -$height/2;
+      top: $distant;
+      @if $border-line-px !='' {
+        border-bottom: $border-line-px solid $black;
+        border-left: $border-line-px solid $black;
+      }
+    }
+    @else if $direaction == 'top' {
+      top: -$height/2;
+      left: $distant;
+      @if $border-line-px !='' {
+        border-left: $border-line-px solid $black;
+        border-top: $border-line-px solid $black;
+      }
+    }
+    @else if $direaction == 'right' {
+      right: -$height/2;
+      top: $distant;
+      @if $border-line-px !='' {
+        border-top: $border-line-px solid $black;
+        border-right: $border-line-px solid $black;
+      }
+    }
+    @else  {
+      bottom: -$height/2;
+      left: $distant;
+      @if $border-line-px !='' {
+        border-bottom: $border-line-px solid $black;
+        border-right: $border-line-px solid $black;
+      }
+    }
   }
 }

@@ -1,8 +1,11 @@
+import { CSSProperties } from 'vue'
+
 /**
  * popover props
  */
 export interface IPopverProps{
   visible:boolean,
+  contentStyle:CSSProperties
 }
 /**
  * popover emit

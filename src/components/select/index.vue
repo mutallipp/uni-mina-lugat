@@ -1,6 +1,9 @@
 <template>
   <div class="select-lang">
-    <popover v-model:visible="popoverVisible">
+    <popover
+      v-model:visible="popoverVisible"
+      :content-style="contentStyle"
+    >
       <div>
         {{ currentValue }}
         <van-icon
@@ -13,13 +16,15 @@
         />
       </div>
       <template #content>
-        <m-select-item
-          v-for="(item,index) in data"
-          :key="item[option.value]+index"
-          :label="item[option.label]"
-          :value="item[option.value]"
-          @onClick="onClickItem"
-        />
+        <div class="drop-down-content">
+          <m-select-item
+            v-for="(item,index) in data"
+            :key="item[option.value]+index"
+            :label="item[option.label]"
+            :value="item[option.value]"
+            @onClick="onClickItem"
+          />
+        </div>
       </template>
     </popover>
   </div>
@@ -27,7 +32,7 @@
 
 <script lang="ts">
 import {
-  computed, defineComponent, PropType, ref, toRefs,
+  computed, CSSProperties, defineComponent, PropType, ref, toRefs,
 } from 'vue'
 import Popover from '@components/popover/index.vue'
 import { IAnyObj } from '@/defineds'
@@ -37,6 +42,12 @@ import SelectItem from './select-item.vue'
 function useDropDown (props:ISelectProps, { emit }:ISelectEmit) {
   const { value, data, option } = toRefs(props)
   const popoverVisible = ref(false)
+  /**
+   * popover组件气泡内容样式
+   */
+  const contentStyle:CSSProperties = {
+    textAlign: 'center',
+  }
   const currentValue = computed({
     get () {
       return data.value?.find(item => item[option.value.value] === value.value)?.[option.value.label] || '请选择'
@@ -52,6 +63,7 @@ function useDropDown (props:ISelectProps, { emit }:ISelectEmit) {
   return {
     currentValue,
     popoverVisible,
+    contentStyle,
 
     onClickItem,
   }
@@ -92,5 +104,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.drop-down-content{
+  background-color: $white;
+    padding: '5px';
 
+  @include create-triangle(8px,'top',calc(50% - 10px),1px);
+
+}
 </style>

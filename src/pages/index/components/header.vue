@@ -3,25 +3,6 @@
     class="header-container"
     :style="headerStyle"
   >
-    <!-- <div
-      class="left"
-      @click="changeLang"
-    >
-      {{ $t(currentLang.textLeft) }}
-    </div>
-    <div
-      class="center"
-      @click="changeLang"
-    >
-      <van-icon name="minus" />
-      <van-icon name="arrow" />
-    </div>
-    <div
-      class="right"
-      @click="changeLang"
-    >
-      {{ $t(currentLang.textRight) }}
-    </div> -->
     <m-select
       v-model:value="lang"
       :data="langList"

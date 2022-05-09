@@ -69,17 +69,17 @@ export default defineComponent({
     position: absolute;
     top: 5px;
     &.left{
-      left: 5px
+      left: 8px
     }
     &.right{
-      right: 5px
+      right: 8px
     }
   }
   &.left{
-    @include create-triangle('left');
+    @include create-triangle(16px,'left',18px);
   }
   &.right{
-    @include create-triangle('right');
+    @include create-triangle(16px,'right',18px);
   }
 }
 </style>

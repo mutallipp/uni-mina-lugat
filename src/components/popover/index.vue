@@ -10,7 +10,7 @@
     </view>
     <div
       :class="contentClassNames"
-      :style="contentStyle"
+      :style="currentContentStyle"
     >
       <popover-content>
         <slot name="content" />
@@ -25,19 +25,21 @@
 
 <script lang="ts">
 import {
-  computed, defineComponent, toRefs,
+  computed, CSSProperties, defineComponent, PropType, toRefs,
 } from 'vue'
 import { IPopverProps, IPopverEmit } from './types'
 import PopoverContent from './content.vue'
 
 function usePopover (props:IPopverProps, { emit }:IPopverEmit) {
-  const { visible } = toRefs(props)
+  const { visible, contentStyle } = toRefs(props)
   // const show = ref<boolean>(true)
 
-  const contentStyle = computed(() => {
+  const currentContentStyle = computed<CSSProperties>(() => {
     return {
-      width: '100%;',
-      'text-align': 'left;',
+      width: '100%',
+      // left: '0px',
+      textAlign: 'left',
+      ...contentStyle.value,
     }
   })
 
@@ -65,7 +67,7 @@ function usePopover (props:IPopverProps, { emit }:IPopverEmit) {
 
   return {
     contentClassNames,
-    contentStyle,
+    currentContentStyle,
 
     clickTag,
     onClickMask,
@@ -80,6 +82,10 @@ export default defineComponent({
       type: Boolean,
       required: true,
       default: false,
+    },
+    contentStyle: {
+      type: Object as PropType<CSSProperties>,
+      default: () => {},
     },
   },
   emits: ['update:visible'],
@@ -102,11 +108,12 @@ $panel-opacity: 1;
   position: relative;
   z-index: $index-level-float;
   .popover-content{
+    // width: 100%;
     position: absolute;
     top: 30px;
     z-index: 99;
     border: $black solid 1px;
-      // background-color: $white;
+    background-color: $white;
     &.show{
       visibility: show;
     }
