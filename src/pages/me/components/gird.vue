@@ -41,7 +41,7 @@
 
 <script lang="ts">
 import {
-  defineComponent,
+  defineComponent, SetupContext,
 } from 'vue'
 import * as utils from '@utils/index'
 import { useI18n } from '@lang/index'
@@ -52,7 +52,7 @@ interface IDataSourseItem {
   icon:string,
   to?:string,
 }
-function useGird () {
+function useGird (props:any, { emit }:SetupContext<Array<'onClick'>>) {
   const { t } = useI18n()
   const gridList:IDataSourseItem[] = [
     {
@@ -67,6 +67,12 @@ function useGird () {
       name: 'contact',
       to: '/pages/me/info',
     },
+    {
+      icon: 'setting-o',
+      title: 'me.grid.setting',
+      name: 'setting',
+      to: '/pages/me/info',
+    },
   ]
   const handleClick = (item:IDataSourseItem) => {
     if (item?.name) {
@@ -74,6 +80,9 @@ function useGird () {
         uni.navigateTo({
           url: item.to,
         })
+      }
+      if (item.name === 'setting') {
+        emit('onClick', item.name)
       }
     } else {
       utils.toast(t('static.common.doNotDev'), 'error')
@@ -90,9 +99,10 @@ export default defineComponent({
   components: {},
   props: {
   },
-  setup () {
+  emits: ['onClick'],
+  setup (props, context) {
     return {
-      ...useGird(),
+      ...useGird(props, context),
     }
   },
 })

@@ -49,7 +49,7 @@
       </div>
     </div>
     <div class="grid-content m-x-20">
-      <m-gird />
+      <m-gird @onClick="onClickGird" />
     </div>
     <template #footer>
       <div class="footer">
@@ -95,6 +95,15 @@ function useMe () {
   const clickSetting = () => {
     settingVisible.value = true
   }
+  const onClickGird = (name:string) => {
+    switch (name) {
+      case 'setting':
+        settingVisible.value = true
+        break
+      default:
+        break
+    }
+  }
   const clickSettingItem = (key:string) => {
     console.log('clickSettingItem', key)
     switch (key) {
@@ -114,6 +123,7 @@ function useMe () {
     clickAvatarHandle,
     clickSetting,
     clickSettingItem,
+    onClickGird,
   }
 }
 export default defineComponent({

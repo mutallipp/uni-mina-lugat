@@ -9,6 +9,7 @@ export default {
   grid: {
     mina: '小程序',
     contact: '联系我们',
+    setting: '设置',
   },
   changeLang: {
     choseLang: '请选择语言',

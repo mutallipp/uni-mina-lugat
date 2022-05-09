@@ -9,6 +9,7 @@ export default {
   grid: {
     mina: 'ئەپچاق ھەققىدە',
     contact: 'ئالاقىلىشاي',
+    setting: 'بەلگىلەش',
   },
   changeLang: {
     choseLang: 'تاللاش تىلى',

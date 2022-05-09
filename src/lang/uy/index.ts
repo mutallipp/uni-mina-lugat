@@ -7,6 +7,7 @@ export default {
   static: {
     common: {
       doNotDev: 'بۇ ئىقتىدار تېخى ئېچىلمىدى',
+      changeLang: 'تىل ئالماشتۇرۇش مۇۋەپپەقىيەتلىك بولدى',
     },
     tabBar: {
       home: 'باش بەت',
