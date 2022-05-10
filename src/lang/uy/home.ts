@@ -4,9 +4,9 @@ export default {
       zhLang: 'دۆلەت تىلى',
       uyLang: 'ئۇيغۇرچە',
       // eslint-disable-next-line no-useless-concat
-      zh2uy: 'دۆلەت تىلى-> ' + 'ئۇيغۇرچە',
+      zh2uy: 'دۆلەت تىلى' + ' -> ' + 'ئۇيغۇرچە',
       // eslint-disable-next-line no-useless-concat
-      uy2zh: 'ئۇيغۇرچە -> ' + 'دۆلەت تىلى',
+      uy2zh: 'ئۇيغۇرچە' + ' -> ' + 'دۆلەت تىلى',
     },
     chatInput: {
       inputHolderL: 'مەزمۇننى كىرگۈزۈڭ',

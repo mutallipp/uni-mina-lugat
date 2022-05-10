@@ -1,6 +1,6 @@
 <template>
   <div @click="onClick">
-    <div>{{ label }}</div>
+    <div>{{ $t(label) }}</div>
   </div>
 </template>
 

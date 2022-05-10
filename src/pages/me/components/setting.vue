@@ -1,44 +1,45 @@
 <template>
-  <div
-    class="setting-popup-wrap"
-    @click="onClose"
-  >
-    <div
-      class="popup"
+  <div class="popup">
+    <van-popup
+      :show="visible"
+      position="right"
+      custom-style="height: 100%;width:60%;"
+      :overlay="false"
+      :z-index="13"
     >
-      <van-popup
-        :show="visible"
-        close-on-click-overlay
-        position="right"
-        custom-style="height: 100%;width:60%;"
-        :close="onClose"
-        :click-overlay="onClose"
-      >
-        <van-cell-group inset>
-          <div @click.stop="clickClearCash('message')">
-            <van-cell
-              :title="$t('me.setting.clearTranslateCash')"
-              is-link
-              arrow-direction="right"
-            />
-          </div>
-          <div @click.stop="clickClearCash('all')">
-            <van-cell
-              :title="$t('me.setting.clearAllCash')"
-              is-link
-              arrow-direction="right"
-            />
-          </div>
-          <div @click.stop="clickClearCash('changeLang')">
-            <van-cell
-              :title="$t('me.setting.changeLang')"
-              is-link
-              arrow-direction="right"
-            />
-          </div>
-        </van-cell-group>
-      </van-popup>
-    </div>
+      <van-cell-group inset>
+        <div @click.stop="clickClearCash('message')">
+          <van-cell
+            :title="$t('me.setting.clearTranslateCash')"
+            is-link
+            arrow-direction="right"
+          />
+        </div>
+        <div @click.stop="clickClearCash('all')">
+          <van-cell
+            :title="$t('me.setting.clearAllCash')"
+            is-link
+            arrow-direction="right"
+          />
+        </div>
+        <div @click.stop="clickClearCash('changeLang')">
+          <van-cell
+            :title="$t('me.setting.changeLang')"
+            is-link
+            arrow-direction="right"
+          />
+        </div>
+      </van-cell-group>
+    </van-popup>
+    <div
+      v-if="visible"
+      class="mask"
+      @click.stop="onClose"
+    />
+    <!-- 切换语言 -->
+    <change-lang
+      v-model:visible="changeLangVisible"
+    />
   </div>
 </template>
 
@@ -50,15 +51,16 @@ import { LocalStorageKeyType } from '@utils/constanst/storage'
 import { useI18n } from '@lang/index'
 import { useStore } from '@/store'
 import { SettingActionTypes } from '@/store/modules/setting/constants/action'
+import ChangeLange from './change-lang.vue'
 import { ISettingEmit } from './types/setting'
 
 function useSetting (props:any, { emit }:ISettingEmit) {
   const { t } = useI18n()
   const store = useStore()
   const settingVisible = ref(true)
+  const changeLangVisible = ref(false)
 
   const onClose = () => {
-    console.log('onClose')
     emit('update:visible', false)
   }
   const clickClearCash = async (key:'message'|'all'|'changeLang') => {
@@ -75,6 +77,10 @@ function useSetting (props:any, { emit }:ISettingEmit) {
         flag = code
         break
       }
+      case 'changeLang': {
+        changeLangVisible.value = true
+        break
+      }
       default:
         break
     }
@@ -86,18 +92,22 @@ function useSetting (props:any, { emit }:ISettingEmit) {
       }
     }
 
-    emit('click', key)
+    // emit('click', key)
     emit('update:visible', false)
   }
   return {
     settingVisible,
+    changeLangVisible,
 
     onClose,
     clickClearCash,
   }
 }
 export default defineComponent({
-  components: {},
+  components: {
+    'change-lang': ChangeLange,
+
+  },
   props: {
     visible: {
       type: Boolean,
@@ -114,13 +124,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.setting-popup-wrap{
-  position: absolute;
-  width: 100vh;
+.mask{
+  position: fixed;
+  width: 100vw;
   height: 100vh;
-  z-index: 9;
-  .popup{
-    z-index: 10;
-  }
+  top: 0;
+  left: 0;
+  background-color: $black;
+  opacity: 0.5;
+  z-index: 12;
 }
 </style>

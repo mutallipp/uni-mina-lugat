@@ -5,7 +5,7 @@
       :content-style="contentStyle"
     >
       <div>
-        {{ currentValue }}
+        {{ $t(currentValue) }}
         <van-icon
           v-show="!popoverVisible"
           name="arrow-down"

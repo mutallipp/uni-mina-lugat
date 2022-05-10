@@ -1,7 +1,7 @@
 import { createSSRApp } from 'vue'
 import { setupStore } from '@store/index'
-// import componentRegister from '@components/register'
-// import { setupComponents } from '@components/index'
+import Row from '@components/row/index.vue'
+import Col from '@components/col/index.vue'
 import Layout from '@layout/index.vue'
 import i18n from './lang/index'
 
@@ -27,4 +27,6 @@ export function createApp () {
 
 function setupComponents (app:any) {
   app.component('m-layout', Layout)
+  app.component('m-row', Row)
+  app.component('m-col', Col)
 }

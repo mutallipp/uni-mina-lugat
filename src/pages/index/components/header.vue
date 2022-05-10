@@ -1,29 +1,53 @@
 <template>
   <div
     class="header-container"
-    :style="headerStyle"
   >
-    <m-select
-      v-model:value="lang"
-      :data="langList"
-      :option="{label:'text',value:'value'}"
+    <m-row>
+      <m-col :span="23">
+        <div
+          class="header-lang"
+          :style="headerStyle"
+        >
+          <m-select
+            v-model:value="lang"
+            :data="langList"
+            :option="{label:'text',value:'value'}"
+          />
+        </div>
+      </m-col>
+      <m-col :span="1">
+        <van-icon
+          name="chat-o"
+          dot
+          @click="onClickSetting"
+        />
+      </m-col>
+    </m-row>
+    <m-setting
+      v-model:visible="settingVisible"
+      @click="clickSettingItem"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs } from 'vue'
+import {
+  computed, defineComponent, ref, toRefs,
+} from 'vue'
 import { useStore } from '@/store'
 import { SettingGetterType } from '@/store/modules/setting/constants/getter'
 import Select from '@components/select/index.vue'
+import Setting from '@/pages/me/components/setting.vue'
 import { IHomeHeaderEmit, IHomeHeaderProps } from './types/header'
 import { langList } from './constants/header'
 
 function useHomeHeader (props:IHomeHeaderProps, { emit }:IHomeHeaderEmit) {
   const store = useStore()
   const { currentLang } = toRefs(props)
+
+  const settingVisible = ref(false)
+
   const baseColor = computed(() => store.getters[SettingGetterType.BASE_COLOR])
-  // const currentLang = computed<ILangItem>(() => langList[activeIndex.value])
   const lang = computed({
     get () {
       return currentLang.value
@@ -32,29 +56,28 @@ function useHomeHeader (props:IHomeHeaderProps, { emit }:IHomeHeaderEmit) {
       emit('update:currentLang', val)
     },
   })
-  // const currentLang = ref(1)
   const headerStyle = computed(() => {
     return {
       color: baseColor.value,
     }
   })
-  // const changeLang = ():void => {
-  //   activeIndex.value = activeIndex.value === 0 ? 1 : 0
-  //   emit('onChange', currentLang.value)
-  // }
+  const onClickSetting = () => {
+    settingVisible.value = true
+  }
   return {
     baseColor,
     headerStyle,
-    currentLang,
     langList,
     lang,
+    settingVisible,
 
-    // changeLang,
+    onClickSetting,
   }
 }
 export default defineComponent({
   components: {
     'm-select': Select,
+    'm-setting': Setting,
   },
   props: {
     currentLang: {
@@ -74,13 +97,16 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .header-container{
+  background-color: white;
+    padding: 10px 10px;
+  border-radius: 5px;
+  .header-lang{
   display: flex;
   justify-content: center;
   text-align: center;
-  background-color: white;
+
   // margin:10px;
-  padding: 10px 10px;
-  border-radius: 5px;
+
   .left{
     width: 45%;
   }
@@ -92,4 +118,6 @@ export default defineComponent({
     width: 45%;
   }
 }
+}
+
 </style>

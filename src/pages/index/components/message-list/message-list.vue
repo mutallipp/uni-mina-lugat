@@ -75,6 +75,7 @@ function useMessageList () {
      * tabBar 50 +40
      */
     let height = 50 + 20
+
     if (homeHeaderRect.value?.height) {
       height += homeHeaderRect.value?.height
     }
@@ -87,6 +88,7 @@ function useMessageList () {
     // if (tabBarRect.value?.height) {
     //   height += tabBarRect.value?.height
     // }
+
     return `${height}px`
   })
   // 消息滚动到底部

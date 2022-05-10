@@ -82,7 +82,7 @@
 创建小三角
 */
 @mixin create-triangle($height:16px,$direaction:'left',$distant:50%,$border-line-px:'') {
-  z-index: 10;
+  z-index: 2;
   &:after {
     content: '';
     position: absolute;
@@ -95,7 +95,7 @@
     background-color: inherit;
     overflow-x: hidden;
     overflow-y: hidden;
-    z-index: 9;
+    z-index: 1;
     
     @if $direaction == 'left' {
       left: -$height/2;

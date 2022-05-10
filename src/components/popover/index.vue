@@ -106,7 +106,7 @@ $mask-opacity: 0.5;
 $panel-opacity: 1;
 .popover-wrap{
   position: relative;
-  z-index: $index-level-float;
+  // z-index: $index-level-float;
   .popover-content{
     // width: 100%;
     position: absolute;

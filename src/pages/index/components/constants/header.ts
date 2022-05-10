@@ -16,11 +16,12 @@ export const langList:ILangItem[] = [
   // },
   {
     value: 1,
-    text: '国语 ->维语',
+    // text: '国语 ->维语',
+    text: 'home.header.zh2uy',
   },
   {
     value: 7,
-    text: '维语 ->国语',
+    text: 'home.header.uy2zh',
   },
 
 ]
