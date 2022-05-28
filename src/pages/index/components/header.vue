@@ -17,7 +17,7 @@
       </m-col>
       <m-col :span="1">
         <van-icon
-          name="chat-o"
+          name="setting-o"
           dot
           @click="onClickSetting"
         />
